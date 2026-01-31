@@ -4,7 +4,7 @@
     const NeveOnboarding = {
         data: {
             selectedDemo: null,
-            selectedBuilder: 'gutenberg', // Domyślnie Gutenberg
+            selectedBuilder: 'gutenberg', // Domyślna wartość
             steps: {
                 1: '.step-select-demo',
                 2: '.step-select-builder',
@@ -26,10 +26,13 @@
 
             Object.keys(demos).forEach(key => {
                 const demo = demos[key];
+                // Fallback dla obrazka jeśli nie istnieje
+                const img = demo.preview ? demo.preview : 'https://via.placeholder.com/400x300?text=Demo';
+
                 const html = `
                     <div class="demo-card" data-demo="${key}">
                         <div class="demo-preview">
-                            <img src="${demo.preview}" alt="${demo.title}">
+                            <img src="${img}" alt="${demo.title}">
                         </div>
                         <div class="demo-footer">
                             <h3>${demo.title}</h3>
@@ -56,35 +59,54 @@
                 self.goToStep(2);
             });
 
-            // Krok 2: Wybór Buildera
+            // Krok 2: Wybór Buildera - KLIKALNOŚĆ
             $(document).on('click', '.builder-card', function () {
                 $('.builder-card').removeClass('selected');
                 $(this).addClass('selected');
                 self.data.selectedBuilder = $(this).data('builder');
+                console.log('Wybrano builder:', self.data.selectedBuilder);
             });
 
+            // Nawigacja "Dalej" w kroku 2
             $('.step-select-builder .next-step').on('click', function () {
                 self.goToStep(3);
                 self.prepareImport();
             });
 
+            // Nawigacja "Wstecz"
+            $('.prev-step').on('click', function() {
+                const goto = $(this).data('goto');
+                self.goToStep(goto);
+            });
+
             // Krok 3: Start Importu
             $('.start-import').on('click', function () {
-                $(this).addClass('disabled').text('Przetwarzanie...');
+                $(this).addClass('disabled').text('Instalowanie w toku...');
                 self.processQueue();
             });
         },
 
         goToStep: function (stepNumber) {
-            $('.step').removeClass('active');
+            // Ukryj wszystko
+            $('.step-content').removeClass('active');
+            $('.step-dot').removeClass('active');
+
+            // Pokaż właściwy krok
             $(this.data.steps[stepNumber]).addClass('active');
+
+            // Zaktualizuj nagłówek (kropki)
+            $(`.step-dot[data-step="${stepNumber}"]`).addClass('active');
+            // Zaznacz też poprzednie jako aktywne dla estetyki
+            for(let i=1; i<stepNumber; i++) {
+                $(`.step-dot[data-step="${i}"]`).addClass('active');
+            }
         },
 
         prepareImport: function () {
             const list = $('.import-progress-list');
             list.empty();
-            list.append('<li class="status-waiting" id="task-plugins"><span class="dashicons dashicons-admin-plugins"></span> Sprawdzanie wtyczek...</li>');
-            list.append('<li class="status-waiting" id="task-content"><span class="dashicons dashicons-download"></span> Import treści...</li>');
+            list.append('<li class="status-waiting" id="task-plugins"><span class="dashicons dashicons-admin-plugins"></span> Sprawdzanie i instalacja wtyczek...</li>');
+            list.append('<li class="status-waiting" id="task-content"><span class="dashicons dashicons-download"></span> Importowanie treści demo...</li>');
 
             // Pobierz listę wtyczek do instalacji
             this.getPluginsToInstall();
@@ -106,7 +128,7 @@
                     if (response.success) {
                         self.pluginsQueue = response.data;
                         if (self.pluginsQueue.length > 0) {
-                            $('#task-plugins').html('<span class="dashicons dashicons-admin-plugins"></span> Do zainstalowania: ' + self.pluginsQueue.length + ' wtyczek.');
+                            $('#task-plugins').html('<span class="dashicons dashicons-admin-plugins"></span> Do zainstalowania: ' + self.pluginsQueue.length + ' wtyczek (w tym Importer)...');
                         } else {
                             $('#task-plugins').addClass('done').html('<span class="dashicons dashicons-yes"></span> Wtyczki gotowe.');
                         }
@@ -146,10 +168,10 @@
             }
 
             // Oznacz wtyczki jako gotowe
-            $('#task-plugins').removeClass('status-waiting').addClass('done').html('<span class="dashicons dashicons-yes"></span> Wtyczki zainstalowane.');
+            $('#task-plugins').removeClass('status-waiting').addClass('done').html('<span class="dashicons dashicons-yes"></span> Wszystkie wtyczki zainstalowane i aktywne.');
 
             // 2. Import Contentu
-            $('#task-content').html('<span class="spinner is-active" style="float:none;margin:0 5px 0 0;"></span> Importowanie treści (to może chwilę potrwać)...');
+            $('#task-content').html('<span class="spinner is-active" style="float:none;margin:0 5px 0 0;"></span> Importowanie XML (może to zająć chwilę)...');
 
             $.ajax({
                 url: neveOnboarding.ajaxurl,
@@ -162,20 +184,19 @@
                 },
                 success: function (response) {
                     if (response.success) {
-                        $('#task-content').addClass('done').html('<span class="dashicons dashicons-yes"></span> Treść zaimportowana.');
+                        $('#task-content').addClass('done').html('<span class="dashicons dashicons-yes"></span> Treść zaimportowana pomyślnie.');
                         setTimeout(function() {
                             self.goToStep(4);
                         }, 1000);
                     } else {
                         $('#task-content').addClass('error').html('<span class="dashicons dashicons-warning"></span> Błąd: ' + response.data.message);
                         console.error(response.data);
-                        alert('Wystąpił błąd krytyczny: ' + response.data.message);
+                        alert('Błąd importu: ' + response.data.message);
                     }
                 },
-                error: function(xhr, status, error) {
-                     $('#task-content').addClass('error').html('<span class="dashicons dashicons-warning"></span> Błąd serwera.');
-                     console.error(xhr.responseText);
-                     alert('Błąd serwera (500). Sprawdź logi PHP. Prawdopodobnie time limit lub memory limit.');
+                error: function(xhr) {
+                     $('#task-content').addClass('error').html('<span class="dashicons dashicons-warning"></span> Błąd serwera (Timeout?).');
+                     alert('Błąd serwera. Sprawdź czy plik XML istnieje w folderze demo-content i czy serwer nie zabił procesu.');
                 }
             });
         }
