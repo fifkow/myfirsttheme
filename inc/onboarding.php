@@ -1,6 +1,6 @@
 <?php
 /**
- * Obsługa wymaganych wtyczek (TGMPA) z Repozytorium WP
+ * Obsługa wymaganych wtyczek (TGMPA) z Repozytorium WP (Linki bezpośrednie)
  * oraz konfiguracja One Click Demo Import (OCDI).
  *
  * @package Neve_Lite
@@ -11,64 +11,71 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * 1. ŁADOWANIE BIBLIOTEKI TGM (Z Twojego repozytorium)
+ * 1. ŁADOWANIE BIBLIOTEKI TGM
+ * Korzystamy z pliku, który masz już w repozytorium (inc/class-tgm-plugin-activation.php).
  */
 if ( file_exists( get_template_directory() . '/inc/class-tgm-plugin-activation.php' ) ) {
 	require_once get_template_directory() . '/inc/class-tgm-plugin-activation.php';
 }
 
 /**
- * 2. KONFIGURACJA WTYCZEK Z REPOZYTORIUM
+ * 2. KONFIGURACJA WTYCZEK
  */
 function neve_lite_register_required_plugins() {
 
 	/*
-	 * Lista wtyczek do pobrania z WordPress.org.
-	 * Nie podajemy 'source', więc TGM pobierze je automatycznie po 'slug'.
+	 * Używamy bezpośrednich linków do repozytorium ('source').
+	 * Rozwiązuje to problem "Paczka nie mogła zostać zainstalowana",
+	 * gdy serwer nie może połączyć się z API WordPressa, aby pobrać metadane.
+	 * To nadal jest pobieranie z oficjalnego źródła (nie bundled), ale bardziej niezawodne.
 	 */
 	$plugins = array(
-		// 1. One Click Demo Import - Niezbędne do importu demo
+		// 1. One Click Demo Import
 		array(
 			'name'      => 'One Click Demo Import',
 			'slug'      => 'one-click-demo-import',
+			'source'    => 'https://downloads.wordpress.org/plugin/one-click-demo-import.latest-stable.zip',
 			'required'  => true,
 		),
 
-		// 2. Elementor - Builder
+		// 2. Elementor
 		array(
 			'name'      => 'Elementor Website Builder',
 			'slug'      => 'elementor',
+			'source'    => 'https://downloads.wordpress.org/plugin/elementor.latest-stable.zip',
 			'required'  => true,
 		),
 
-		// 3. Contact Form 7 - Formularze
+		// 3. Contact Form 7
 		array(
 			'name'      => 'Contact Form 7',
 			'slug'      => 'contact-form-7',
+			'source'    => 'https://downloads.wordpress.org/plugin/contact-form-7.latest-stable.zip',
 			'required'  => false,
 		),
 
-		// 4. WooCommerce - Sklep
+		// 4. WooCommerce
 		array(
 			'name'      => 'WooCommerce',
 			'slug'      => 'woocommerce',
+			'source'    => 'https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip',
 			'required'  => false,
 		),
 	);
 
 	/*
-	 * Konfiguracja zachowania TGM
+	 * Konfiguracja TGM
 	 */
 	$config = array(
-		'id'           => 'neve-lite',             // Unikalne ID
-		'default_path' => '',                      // Puste = pobieraj z repozytorium
-		'menu'         => 'neve-install-plugins',  // Slug strony instalacji
+		'id'           => 'neve-lite',             // ID konfiguracji
+		'default_path' => '',                      // Puste = pobieraj ze źródła
+		'menu'         => 'neve-install-plugins',  // Slug menu
 		'parent_slug'  => 'themes.php',            // Gdzie w menu
 		'capability'   => 'edit_theme_options',
-		'has_notices'  => true,                    // Pokaż komunikat adminowi
-		'dismissable'  => true,                    // Można zamknąć
+		'has_notices'  => true,                    // Pokaż komunikaty
+		'dismissable'  => true,                    // Pozwól zamknąć
 		'dismiss_msg'  => '',
-		'is_automatic' => false,                   // False jest bezpieczniejsze (nie wymusza aktywacji na siłę, co czasem powoduje błędy 500 przy dużych wtyczkach)
+		'is_automatic' => false,                   // False jest bezpieczniejsze (unikamy timeoutów przy dużych paczkach)
 	);
 
 	if ( function_exists( 'tgmpa' ) ) {
@@ -131,12 +138,11 @@ if ( class_exists( 'OCDI_Plugin' ) ) {
 	}
 	add_filter( 'pt-ocdi/import_files', 'neve_lite_ocdi_import_files' );
 
-	// B. Konfiguracja po imporcie (Menu, Strona główna)
+	// B. Konfiguracja po imporcie
 	function neve_lite_ocdi_after_import() {
-		// Przypisanie Menu
+		// Menu
 		$main_menu = get_term_by( 'name', 'Primary Menu', 'nav_menu' );
 		if ( ! $main_menu ) {
-			// Jeśli nazwa jest inna, weź pierwsze dostępne
 			$menus = get_terms( 'nav_menu' );
 			if ( ! empty( $menus ) ) {
 				$main_menu = $menus[0];
@@ -149,7 +155,7 @@ if ( class_exists( 'OCDI_Plugin' ) ) {
 			) );
 		}
 
-		// Ustawienie strony głównej i bloga
+		// Home & Blog
 		$front_page = get_page_by_title( 'Home' );
 		$blog_page  = get_page_by_title( 'Blog' );
 
@@ -162,12 +168,12 @@ if ( class_exists( 'OCDI_Plugin' ) ) {
 			update_option( 'page_for_posts', $blog_page->ID );
 		}
 
-		// Odświeżenie CSS Elementora
+		// Elementor CSS
 		if ( class_exists( '\Elementor\Plugin' ) ) {
 			\Elementor\Plugin::$instance->files_manager->clear_cache();
 		}
 
-		// Podstawowa konfiguracja Woo
+		// WooCommerce Pages
 		if ( class_exists( 'WooCommerce' ) ) {
 			$shop_page = get_page_by_title( 'Shop' );
 			if ( $shop_page ) {
@@ -177,6 +183,6 @@ if ( class_exists( 'OCDI_Plugin' ) ) {
 	}
 	add_action( 'pt-ocdi/after_import', 'neve_lite_ocdi_after_import' );
 
-	// C. Optymalizacja: Wyłącz generowanie miniatur podczas importu (przyspiesza proces)
+	// C. Wyłącz miniatury przy imporcie (Optymalizacja)
 	add_filter( 'pt-ocdi/regenerate_thumbnails_in_content_import', '__return_false' );
 }
