@@ -58,8 +58,8 @@ class Neve_Lite_Onboarding {
 			return;
 		}
 
-		wp_enqueue_style( 'neve-onboarding-css', get_template_directory_uri() . '/assets/css/onboarding.css', array(), '1.8.0' );
-		wp_enqueue_script( 'neve-onboarding-js', get_template_directory_uri() . '/assets/js/onboarding.js', array( 'jquery', 'wp-util', 'updates' ), '1.8.0', true );
+		wp_enqueue_style( 'neve-onboarding-css', get_template_directory_uri() . '/assets/css/onboarding.css', array(), '2.0.0' );
+		wp_enqueue_script( 'neve-onboarding-js', get_template_directory_uri() . '/assets/js/onboarding.js', array( 'jquery', 'wp-util', 'updates' ), '2.0.0', true );
 
 		wp_localize_script(
 			'neve-onboarding-js',
@@ -217,12 +217,15 @@ class Neve_Lite_Onboarding {
 
 		$plugins_to_install = array();
 
+		// 1. Importer - absolutna podstawa
 		$plugins_to_install[] = array('slug' => 'wordpress-importer', 'name' => 'WordPress Importer');
 
+		// 2. Elementor
 		if ( 'elementor' === $builder ) {
 			$plugins_to_install[] = array('slug' => 'elementor', 'name' => 'Elementor');
 		}
 
+		// 3. WooCommerce
 		$demos_data = $this->get_demos_data();
 		if ( isset( $demos_data[ $demo ] ) && in_array( 'woocommerce', $demos_data[ $demo ]['plugins'] ) ) {
 			$plugins_to_install[] = array('slug' => 'woocommerce', 'name' => 'WooCommerce');
@@ -238,6 +241,9 @@ class Neve_Lite_Onboarding {
 		wp_send_json_success( $final_list );
 	}
 
+	/**
+	 * INSTALACJA Z POPRAWNYM SYSTEMEM PLIKÓW (Fix dla błędów uprawnień)
+	 */
 	public function ajax_install_plugin() {
 		check_ajax_referer( 'neve_onboarding_nonce', 'nonce' );
 		if ( ! current_user_can( 'install_plugins' ) ) wp_send_json_error( array( 'message' => 'Brak uprawnień.' ) );
@@ -246,22 +252,49 @@ class Neve_Lite_Onboarding {
 
 		include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 		include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+		include_once ABSPATH . 'wp-admin/includes/file.php';
+
+		// INICJALIZACJA SYSTEMU PLIKÓW - Kluczowa zmiana
+		$url = wp_nonce_url( 'themes.php?page=neve-onboarding', 'neve-onboarding-nonce' );
+		if ( false === ( $creds = request_filesystem_credentials( $url, '', false, false, null ) ) ) {
+			wp_send_json_error( array( 'message' => 'Błąd systemu plików. Wymagane dane FTP/uprawnienia.' ) );
+			return;
+		}
+
+		if ( ! WP_Filesystem( $creds ) ) {
+			wp_send_json_error( array( 'message' => 'Nie udało się zainicjować systemu plików.' ) );
+			return;
+		}
 
 		$plugin_main_file = $this->get_plugin_main_file( $slug );
 
 		if ( ! $plugin_main_file ) {
 			$api = plugins_api( 'plugin_information', array( 'slug' => $slug, 'fields' => array( 'sections' => false ) ) );
-			if ( is_wp_error( $api ) ) wp_send_json_error( array( 'message' => $api->get_error_message() ) );
 
-			$upgrader = new Plugin_Upgrader( new WP_Ajax_Upgrader_Skin() );
-			$result   = $upgrader->install( $api->download_link );
-			if ( is_wp_error( $result ) ) wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+			if ( is_wp_error( $api ) ) {
+				wp_send_json_error( array( 'message' => 'Błąd API WP: ' . $api->get_error_message() ) );
+			}
 
+			$skin = new WP_Ajax_Upgrader_Skin();
+			$upgrader = new Plugin_Upgrader( $skin );
+
+			// Instalacja
+			$result = $upgrader->install( $api->download_link );
+
+			if ( is_wp_error( $result ) ) {
+				wp_send_json_error( array( 'message' => 'Błąd instalacji: ' . $result->get_error_message() ) );
+			}
+
+			// Odśwież listę wtyczek po instalacji
+			wp_cache_flush();
 			$plugin_main_file = $this->get_plugin_main_file( $slug );
 		}
 
 		if ( $plugin_main_file ) {
-			activate_plugin( $plugin_main_file );
+			$activated = activate_plugin( $plugin_main_file );
+			if ( is_wp_error( $activated ) ) {
+				wp_send_json_error( array( 'message' => 'Zainstalowano, ale nie udało się aktywować: ' . $activated->get_error_message() ) );
+			}
 			wp_send_json_success( array( 'message' => "Zainstalowano $slug" ) );
 		} else {
 			wp_send_json_error( array( 'message' => "Błąd: nie znaleziono pliku wtyczki $slug po instalacji." ) );
@@ -269,6 +302,13 @@ class Neve_Lite_Onboarding {
 	}
 
 	private function get_plugin_main_file( $slug ) {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		// Wymuś odświeżenie cache wtyczek
+		wp_clean_plugins_cache();
+
 		$plugins = get_plugins();
 		foreach ( $plugins as $file => $data ) {
 			if ( strpos( $file, $slug . '/' ) === 0 ) return $file;
@@ -277,86 +317,88 @@ class Neve_Lite_Onboarding {
 	}
 
 	/**
-	 * OPTIMIZED IMPORT
+	 * IMPORT Z BEZPIECZNYM ŁADOWANIEM KLASY
 	 */
 	public function ajax_import_content() {
-		// 1. Zwiększ zasoby (Najważniejsze!)
+		// Konfiguracja PHP
 		@ini_set( 'memory_limit', '1024M' );
 		@set_time_limit( 0 );
 		ignore_user_abort( true );
-
-		// Wyłącz wyświetlanie błędów, aby nie zepsuć JSON-a (Notice, Deprecated etc.)
-		@ini_set( 'display_errors', 0 );
+		@ini_set( 'display_errors', 0 ); // Ukryj warningi PHP w response JSON
 
 		check_ajax_referer( 'neve_onboarding_nonce', 'nonce' );
 
-		// 2. GAME CHANGER: Wyłącz generowanie miniatur podczas importu
+		// Wyłącz generowanie miniatur (Wydajność + unikanie błędów 500)
 		add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array' );
 
-		// Definicje wymagane przez importer
+		// Definiowanie stałych dla Importera
 		if ( ! defined( 'WP_LOAD_IMPORTERS' ) ) define( 'WP_LOAD_IMPORTERS', true );
 		if ( ! defined( 'WP_IMPORTING' ) ) define( 'WP_IMPORTING', true );
 
-		// Załaduj biblioteki WP
+		// Biblioteki WordPress
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/media.php';
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 		require_once ABSPATH . 'wp-admin/includes/post.php';
 		require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
 
-		// Załaduj klasę bazową
+		// 1. Ładujemy WP_Importer (Klasa bazowa WordPressa)
 		if ( ! class_exists( 'WP_Importer' ) ) {
 			$wp_importer_path = ABSPATH . 'wp-admin/includes/class-wp-importer.php';
-			if ( file_exists( $wp_importer_path ) ) require_once $wp_importer_path;
+			if ( file_exists( $wp_importer_path ) ) {
+				require_once $wp_importer_path;
+			}
 		}
 
-		// Załaduj wtyczkę importera (Bezpiecznie!)
+		// 2. Ładujemy Wtyczkę Importera
 		if ( ! class_exists( 'WP_Import' ) ) {
-			$plugin_dir = WP_PLUGIN_DIR . '/wordpress-importer';
 
-			// Jeśli folder ma inną nazwę (np. wersję), znajdź go
-			if ( ! is_dir( $plugin_dir ) ) {
-				$found = glob( WP_PLUGIN_DIR . '/wordpress-importer*' );
-				if ( ! empty( $found ) ) $plugin_dir = $found[0];
+			// Sprawdzamy standardową ścieżkę
+			$importer_plugin_path = WP_PLUGIN_DIR . '/wordpress-importer/wordpress-importer.php';
+			$importer_parser_path = WP_PLUGIN_DIR . '/wordpress-importer/parsers.php';
+
+			// Jeśli plików nie ma, szukamy alternatywnych (może folder z wersją?)
+			if ( ! file_exists( $importer_plugin_path ) ) {
+				$found = glob( WP_PLUGIN_DIR . '/wordpress-importer*/wordpress-importer.php' );
+				if ( ! empty( $found ) ) {
+					$importer_plugin_path = $found[0];
+					$importer_parser_path = dirname( $found[0] ) . '/parsers.php';
+				}
 			}
 
-			$main_file   = $plugin_dir . '/wordpress-importer.php';
-			$parser_file = $plugin_dir . '/parsers.php';
-
-			// Używamy require_once, aby uniknąć "Cannot redeclare function"
-			if ( file_exists( $parser_file ) ) require_once $parser_file;
-			if ( file_exists( $main_file ) ) require_once $main_file;
+			// Ładujemy pliki
+			if ( file_exists( $importer_parser_path ) ) require_once $importer_parser_path;
+			if ( file_exists( $importer_plugin_path ) ) require_once $importer_plugin_path;
 		}
 
+		// 3. OSTATECZNE SPRAWDZENIE - Jeśli nadal nie ma klasy, przerywamy elegancko
 		if ( ! class_exists( 'WP_Import' ) ) {
-			wp_send_json_error( array( 'message' => 'Błąd krytyczny: Klasa WP_Import niedostępna. Upewnij się, że wtyczka jest zainstalowana.' ) );
+			wp_send_json_error( array(
+				'message' => 'Błąd konfiguracji: Nie można załadować klasy WP_Import. Prawdopodobnie wtyczka "WordPress Importer" nie zainstalowała się poprawnie z powodu braku uprawnień zapisu. Proszę zainstalować ją ręcznie w sekcji Wtyczki i spróbować ponownie.'
+			) );
 		}
 
+		// Dane demo
 		$demo = sanitize_text_field( $_POST['demo'] );
 		$demos_data = $this->get_demos_data();
 
 		if ( ! isset( $demos_data[ $demo ] ) ) wp_send_json_error( array( 'message' => 'Nieprawidłowe demo.' ) );
 		$xml_file = get_template_directory() . '/demo-content/' . $demos_data[ $demo ]['xml'];
-		if ( ! file_exists( $xml_file ) ) wp_send_json_error( array( 'message' => 'Brak pliku XML.' ) );
+		if ( ! file_exists( $xml_file ) ) wp_send_json_error( array( 'message' => 'Brak pliku XML: ' . basename($xml_file) ) );
 
 		try {
 			ob_start();
 
 			$importer = new WP_Import();
-
-			// WAŻNE: Włączamy pobieranie załączników.
-			// Jeśli nadal będziesz miał błąd 500, zmień tę wartość na false.
-			// To pozwoli zaimportować strukturę bez zdjęć.
 			$importer->fetch_attachments = true;
-
 			$importer->import( $xml_file );
 
 			$log = ob_get_clean();
 
-			// Sprzątanie po filtrach
+			// Sprzątanie
 			remove_filter( 'intermediate_image_sizes_advanced', '__return_empty_array' );
 
-			// Konfiguracja strony głównej
+			// Ustawienia po imporcie
 			$homepage = get_page_by_title( 'Home' );
 			$blogpage = get_page_by_title( 'Blog' );
 			if ( $homepage ) {
@@ -365,7 +407,6 @@ class Neve_Lite_Onboarding {
 			}
 			if ( $blogpage ) update_option( 'page_for_posts', $blogpage->ID );
 
-			// Konfiguracja Elementor
 			if( 'elementor' === $_POST['builder'] ) {
 				update_option( 'elementor_cpt_support', array( 'page', 'post', 'product' ) );
 				update_option( 'elementor_disable_color_schemes', 'yes' );
