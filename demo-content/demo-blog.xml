@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Demo 6: Blog Ekspercki / Personal Brand - Marek Nowakowski - Marketing i Biznes
+-->
+<rss version="2.0"
+    xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:wp="http://wordpress.org/export/1.2/"
+>
+<channel>
+    <title>Marek Nowakowski - Marketing, Biznes, Rozwój</title>
+    <link>https://demo.neve-lite.com/blog</link>
+    <description>Praktyczne wskazówki dla przedsiębiorców i marketerów. Ponad 10 lat doświadczenia w branży.</description>
+    <pubDate>Thu, 30 Jan 2025 12:00:00 +0000</pubDate>
+    <language>pl-PL</language>
+    <wp:wxr_version>1.2</wp:wxr_version>
+
+    <!-- HOMEPAGE -->
+    <item>
+        <title>Strona główna</title>
+        <link>https://demo.neve-lite.com/blog/</link>
+        <pubDate>Thu, 30 Jan 2025 12:00:00 +0000</pubDate>
+        <dc:creator><![CDATA[admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.neve-lite.com/blog/?page_id=1</guid>
+        <content:encoded><![CDATA[
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"80px","bottom":"80px"}}},"backgroundColor":"#fef3c7"} -->
+<div class="wp-block-group has-background" style="background-color:#fef3c7;padding-top:80px;padding-bottom:80px">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+<!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%">
+<!-- wp:image {"sizeSlug":"large","align":"center"} -->
+<div class="wp-block-image aligncenter"><figure class="aligncenter size-large is-resized"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400" alt="Marek Nowakowski" style="border-radius:50%"/></figure></div>
+<!-- /wp:image -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center","width":"60%"} -->
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:60%">
+<!-- wp:paragraph {"style":{"color":{"text":"#92400e"}}} -->
+<p class="has-text-color" style="color:#92400e">Cześć, jestem</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":1} -->
+<h1>Marek Nowakowski</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"style":{"typography":{"fontSize":"20px"}}} -->
+<p style="font-size:20px">Pomagam przedsiębiorcom rozwijać biznes przez strategiczny marketing cyfrowy. Autor bestsellerów, mówiec, mentor.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button {"backgroundColor":"#f59e0b","textColor":"white"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-white-color has-background" style="background-color:#f59e0b" href="/o-mnie">Poznaj mnie</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"backgroundColor":"transparent","textColor":"#f59e0b","className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-text-color" style="color:#f59e0b" href="/newsletter">Dołącz do newslettera</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"60px","bottom":"60px"}}}} -->
+<div class="wp-block-group" style="padding-top:60px;padding-bottom:60px">
+<!-- wp:heading {"level":2} -->
+<h2>Najnowsze artykuły</h2>
+<!-- /wp:heading -->
+
+<!-- wp:query {"queryId":1,"query":{"perPage":6,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"displayLayout":{"type":"flex","columns":3},"layout":{"type":"constrained"}} -->
+<div class="wp-block-query">
+<!-- wp:post-template -->
+<!-- wp:post-featured-image {"isLink":true,"width":"100%","height":"200px"} /-->
+<!-- wp:post-title {"isLink":true,"level":3,"style":{"typography":{"fontSize":"20px"}}} /-->
+<!-- wp:post-excerpt {"moreText":"Czytaj więcej","excerptLength":20} /-->
+<!-- /wp:post-template -->
+</div>
+<!-- /wp:query -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"60px","bottom":"60px"}}},"backgroundColor":"#f3f4f6"} -->
+<div class="wp-block-group has-background" style="background-color:#f3f4f6;padding-top:60px;padding-bottom:60px">
+<!-- wp:heading {"textAlign":"center","level":2} -->
+<h2 class="has-text-align-center">Popularne kategorie</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"style":{"backgroundColor":"white","spacing":{"padding":{"top":"30px","right":"30px","bottom":"30px","left":"30px"}},"border":{"radius":"8px"}}} -->
+<div class="wp-block-group has-white-background-color has-background" style="border-radius:8px;padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px">
+<!-- wp:heading {"textAlign":"center","level":3} -->
+<h3 class="has-text-align-center">📈 Marketing</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Strategie marketingowe, reklamy, content marketing, SEO i więcej.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"style":{"backgroundColor":"white","spacing":{"padding":{"top":"30px","right":"30px","bottom":"30px","left":"30px"}},"border":{"radius":"8px"}}} -->
+<div class="wp-block-group has-white-background-color has-background" style="border-radius:8px;padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px">
+<!-- wp:heading {"textAlign":"center","level":3} -->
+<h3 class="has-text-align-center">💼 Biznes</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Zarządzanie, sprzedaż, finanse, rozwój firmy.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"style":{"backgroundColor":"white","spacing":{"padding":{"top":"30px","right":"30px","bottom":"30px","left":"30px"}},"border":{"radius":"8px"}}} -->
+<div class="wp-block-group has-white-background-color has-background" style="border-radius:8px;padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px">
+<!-- wp:heading {"textAlign":"center","level":3} -->
+<h3 class="has-text-align-center">🚀 Produktywność</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Narzędzia, nawyki, zarządzanie czasem, rozwój osobisty.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"60px","bottom":"60px"}}}} -->
+<div class="wp-block-group" style="padding-top:60px;padding-bottom:60px">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:heading {"level":2} -->
+<h2>Odbierz darmowy ebook</h2>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>"10 strategii marketingowych, które przyniosły mi 1M zł obrotu" - praktyczny przewodnik z realnymi przykładami.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<form class="newsletter-form" style="display:flex;gap:10px;">
+<input type="email" placeholder="Twój email" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:4px;" required>
+<button type="submit" style="padding:12px 24px;background:#f59e0b;color:white;border:none;border-radius:4px;cursor:pointer;">Pobierz</button>
+</form>
+<!-- /wp:html -->
+
+<!-- wp:paragraph {"style":{"typography":{"fontSize":"12px"},"color":{"text":"#6b7280"}}} -->
+<p class="has-text-color" style="color:#6b7280;font-size:12px">Spamujemy tylko raz na miesiąc. Możesz się wypisać w każdej chwili.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:image {"sizeSlug":"large"} -->
+<figure class="wp-block-image size-large"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600" alt="Ebook"/></figure>
+<!-- /wp:image -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"60px","bottom":"60px"}}},"backgroundColor":"#1f2937"} -->
+<div class="wp-block-group has-background" style="background-color:#1f2937;padding-top:60px;padding-bottom:60px">
+<!-- wp:heading {"textAlign":"center","level":2,"style":{"color":{"text":"#ffffff"}}} -->
+<h2 class="has-text-align-center has-text-color" style="color:#ffffff">Co mówią czytelnicy</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"style":{"backgroundColor":"#374151","spacing":{"padding":{"top":"30px","right":"30px","bottom":"30px","left":"30px"}},"border":{"radius":"8px"}}} -->
+<div class="wp-block-group has-background" style="background-color:#374151;border-radius:8px;padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px">
+<!-- wp:paragraph {"style":{"color":{"text":"#ffffff"}}} -->
+<p class="has-text-color" style="color:#ffffff">"Blog Marka to moje pierwsze źródło wiedzy o marketingu. Praktyczne, bez lania wody. Polecam każdemu przedsiębiorcy."</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"style":{"color":{"text":"#f59e0b"},"typography":{"fontWeight":"600"}}} -->
+<p class="has-text-color" style="color:#f59e0b;font-weight:600">— Tomasz, właściciel sklepu e-commerce</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"style":{"backgroundColor":"#374151","spacing":{"padding":{"top":"30px","right":"30px","bottom":"30px","left":"30px"}},"border":{"radius":"8px"}}} -->
+<div class="wp-block-group has-background" style="background-color:#374151;border-radius:8px;padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px">
+<!-- wp:paragraph {"style":{"color":{"text":"#ffffff"}}} -->
+<p class="has-text-color" style="color:#ffffff">"Dzięki wskazówkom z tego bloga zwiększyłam konwersję w sklepie o 40%. Wiedza, która naprawdę działa!"</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"style":{"color":{"text":"#f59e0b"},"typography":{"fontWeight":"600"}}} -->
+<p class="has-text-color" style="color:#f59e0b;font-weight:600">— Anna, marketing manager</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+        ]]></content:encoded>
+        <wp:post_id>501</wp:post_id>
+        <wp:post_date><![CDATA[2025-01-30 12:00:00]]></wp:post_date>
+        <wp:post_name><![CDATA[strona-glowna]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[elementor-full-width.php]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+    <!-- SAMPLE BLOG POST -->
+    <item>
+        <title>Jak zbudować skuteczną strategię marketingową w 2025 roku</title>
+        <link>https://demo.neve-lite.com/blog/jak-zbudowac-strategie-marketingowa-2025</link>
+        <pubDate>Thu, 30 Jan 2025 10:00:00 +0000</pubDate>
+        <dc:creator><![CDATA[admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.neve-lite.com/blog/?p=1</guid>
+        <content:encoded><![CDATA[
+<!-- wp:paragraph -->
+<p>Rok 2025 przynosi nowe wyzwania i możliwości dla marketerów. W tym artykule podzielę się sprawdzonymi strategiami, które pomogły mi i moim klientom osiągnąć realne wyniki.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>1. Zrozum swojego klienta</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Przed rozpoczęciem jakichkolwiek działań marketingowych, musisz dokładnie poznać swoją grupę docelową. Nie chodzi tylko o demografię - zrozum ich problemy, aspiracje i motywacje.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>2. Content is still king</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Wartościowa treść to fundament każdej strategii. Ale "wartościowa" nie oznacza długiej - oznacza przydatną. Skup się na rozwiązywaniu realnych problemów swoich odbiorców.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>3. Automatyzacja z sensem</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Narzędzia AI i automatyzacja mogą zaoszczędzić mnóstwo czasu, ale nie zastąpią autentycznego kontaktu z klientem. Używaj technologii mądrze.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Podsumowanie</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Skuteczny marketing w 2025 roku to połączenie technologii, kreatywności i autentyczności. Testuj, mierz, ucz się na błędach i nigdy nie przestawaj się rozwijać.</p>
+<!-- /wp:paragraph -->
+        ]]></content:encoded>
+        <wp:post_id>502</wp:post_id>
+        <wp:post_date><![CDATA[2025-01-30 10:00:00]]></wp:post_date>
+        <wp:post_name><![CDATA[jak-zbudowac-strategie-marketingowa-2025]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_type><![CDATA[post]]></wp:post_type>
+        <category domain="category" nicename="marketing"><![CDATA[Marketing]]></category>
+    </item>
+
+    <!-- ABOUT PAGE -->
+    <item>
+        <title>O mnie</title>
+        <link>https://demo.neve-lite.com/blog/o-mnie</link>
+        <pubDate>Thu, 30 Jan 2025 12:00:00 +0000</pubDate>
+        <dc:creator><![CDATA[admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.neve-lite.com/blog/?page_id=503</guid>
+        <content:encoded><![CDATA[
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"60px","bottom":"60px"}}}} -->
+<div class="wp-block-group" style="padding-top:60px;padding-bottom:60px">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:image {"sizeSlug":"large"} -->
+<figure class="wp-block-image size-large"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800" alt="Marek Nowakowski"/></figure>
+<!-- /wp:image -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:heading {"level":1} -->
+<h1>Cześć, jestem Marek</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Marketingiem zajmuję się od ponad 10 lat. Przez ten czas prowadziłem kampanie dla marek takich jak Nike, Samsung czy mniejszych lokalnych biznesów.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>W 2018 roku założyłem własną agencję marketingową, którą rozwijałem przez 5 lat, zanim sprzedałem ją, by skupić się na edukacji i mentoringu.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Moje osiągnięcia</h3>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul>
+<li>Autor 3 bestsellerów o marketingu</li>
+<li>Ponad 100 000 subskrybentów newslettera</li>
+<li>Wykładowca na 50+ konferencjach branżowych</li>
+<li>Mentor dla ponad 200 przedsiębiorców</li>
+</ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Współpraca</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Szukasz wsparcia w rozwoju swojego biznesu? Zapraszam do kontaktu.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:button {"backgroundColor":"#f59e0b","textColor":"white"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-white-color has-background" style="background-color:#f59e0b" href="/kontakt">Napisz do mnie</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+        ]]></content:encoded>
+        <wp:post_id>503</wp:post_id>
+        <wp:post_date><![CDATA[2025-01-30 12:00:00]]></wp:post_date>
+        <wp:post_name><![CDATA[o-mnie]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+    </item>
+
+</channel>
+</rss>

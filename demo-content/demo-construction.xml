@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Demo 3: Firma Budowlana / Remontowa - BudMax Profesjonalne Wykończenia
+-->
+<rss version="2.0"
+    xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:wp="http://wordpress.org/export/1.2/"
+>
+<channel>
+    <title>BudMax - Profesjonalne Wykończenia Wnętrz</title>
+    <link>https://demo.neve-lite.com/construction</link>
+    <description>Kompleksowe wykończenia wnętrz i remonty w Warszawie i okolicach</description>
+    <pubDate>Thu, 30 Jan 2025 12:00:00 +0000</pubDate>
+    <language>pl-PL</language>
+    <wp:wxr_version>1.2</wp:wxr_version>
+
+    <!-- HOMEPAGE -->
+    <item>
+        <title>Strona główna</title>
+        <link>https://demo.neve-lite.com/construction/</link>
+        <pubDate>Thu, 30 Jan 2025 12:00:00 +0000</pubDate>
+        <dc:creator><![CDATA[admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.neve-lite.com/construction/?page_id=1</guid>
+        <content:encoded><![CDATA[
+<!-- wp:cover {"url":"https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920","dimRatio":60,"overlayColor":"black","minHeight":700,"align":"full"} -->
+<div class="wp-block-cover alignfull" style="min-height:700px"><span aria-hidden="true" class="wp-block-cover__background has-black-background-color has-background-dim-60 has-background-dim"></span><img class="wp-block-cover__image-background" alt="Budowa" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920" data-object-fit="cover"/><div class="wp-block-cover__inner-container">
+<!-- wp:heading {"textAlign":"center","level":1,"style":{"typography":{"fontSize":"56px"},"color":{"text":"#ffffff"}}} -->
+<h1 class="has-text-align-center has-text-color" style="color:#ffffff;font-size:56px">Twój wymarzony dom<br/>zaczyna się tutaj</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"color":{"text":"#ffffff"},"typography":{"fontSize":"20px"}}} -->
+<p class="has-text-align-center has-text-color" style="color:#ffffff;font-size:20px">Kompleksowe wykończenia wnętrz i remonty od A do Z</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons">
+<!-- wp:button {"backgroundColor":"#f39c12","textColor":"white","className":"is-style-fill"} -->
+<div class="wp-block-button is-style-fill"><a class="wp-block-button__link has-white-color has-background" style="background-color:#f39c12" href="/wycena">Darmowa wycena</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"backgroundColor":"white","textColor":"black","className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-black-color has-white-background-color has-text-color has-background" href="/realizacje">Zobacz realizacje</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+</div></div>
+<!-- /wp:cover -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"80px","bottom":"80px"}}},"backgroundColor":"#f8f9fa"} -->
+<div class="wp-block-group has-background" style="background-color:#f8f9fa;padding-top:80px;padding-bottom:80px">
+<!-- wp:heading {"textAlign":"center","level":2} -->
+<h2 class="has-text-align-center">Nasze usługi</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600" alt="Wykończenia"/></figure>
+<!-- /wp:image -->
+<!-- wp:heading {"level":3} -->
+<h3>Wykończenia pod klucz</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Kompleksowe wykończenia mieszkań i domów. Od stanu deweloperskiego po gotowe do zamieszkania wnętrze.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://images.unsplash.com/photo-1584622050111-993a426fbf0a?w=600" alt="Łazienki"/></figure>
+<!-- /wp:image -->
+<!-- wp:heading {"level":3} -->
+<h3>Remonty łazienek</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Kompleksowa wymiana armatur, płytek, instalacji. Tworzymy funkcjonalne i estetyczne łazienki.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600" alt="Kuchnie"/></figure>
+<!-- /wp:image -->
+<!-- wp:heading {"level":3} -->
+<h3>Remonty kuchni</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Montaż mebli kuchennych, blatów, sprzętu AGD. Zaprojektujemy kuchnię Twoich marzeń.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600" alt="Biura"/></figure>
+<!-- /wp:image -->
+<!-- wp:heading {"level":3} -->
+<h3>Wykończenia biur</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Profesjonalne aranżacje przestrzeni biurowych. Szybko, czysto i bez zakłócania pracy.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600" alt="Elektryka"/></figure>
+<!-- /wp:image -->
+<!-- wp:heading {"level":3} -->
+<h3>Instalacje elektryczne</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+>Kompleksowe instalacje elektryczne, oświetlenie, inteligentne systemy sterowania.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=600" alt="Hydraulika"/></figure>
+<!-- /wp:image -->
+<!-- wp:heading {"level":3} -->
+<h3>Instalacje hydrauliczne</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Wymiana i modernizacja instalacji wod-kan, centralnego ogrzewania.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"80px","bottom":"80px"}}}} -->
+<div class="wp-block-group" style="padding-top:80px;padding-bottom:80px">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:heading {"level":2} -->
+<h2>Dlaczego BudMax?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul>
+<li><strong>15 lat doświadczenia</strong> na rynku wykończeń wnętrz</li>
+<li><strong>Gwarancja 5 lat</strong> na wykonane prace</li>
+<li><strong>Ubezpieczenie OC</strong> do 1 mln zł</li>
+<li><strong>Terminowość</strong> - dotrzymujemy ustalonych dat</li>
+<li><strong>Stały kontakt</strong> - raporty z postępów prac</li>
+<li><strong>Czystość</strong> - sprzątamy po każdym dniu pracy</li>
+</ul>
+<!-- /wp:list -->
+
+<!-- wp:button {"backgroundColor":"#f39c12","textColor":"white"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-white-color has-background" style="background-color:#f39c12" href="/wycena">Poproś o wycenę</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:image {"sizeSlug":"large"} -->
+<figure class="wp-block-image size-large"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800" alt="Ekipa budowlana"/></figure>
+<!-- /wp:image -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"80px","bottom":"80px"}}},"backgroundColor":"#f8f9fa"} -->
+<div class="wp-block-group has-background" style="background-color:#f8f9fa;padding-top:80px;padding-bottom:80px">
+<!-- wp:heading {"textAlign":"center","level":2} -->
+<h2 class="has-text-align-center">Nasze realizacje</h2>
+<!-- /wp:heading -->
+
+<!-- wp:gallery {"columns":3,"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-3">
+<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400" alt="Realizacja 1"/>
+<img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400" alt="Realizacja 2"/>
+<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" alt="Realizacja 3"/>
+<img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=400" alt="Realizacja 4"/>
+<img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400" alt="Realizacja 5"/>
+<img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400" alt="Realizacja 6"/>
+</figure>
+<!-- /wp:gallery -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons">
+<!-- wp:button {"backgroundColor":"#f39c12","textColor":"white"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-white-color has-background" style="background-color:#f39c12" href="/realizacje">Zobacz więcej realizacji</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:cover {"url":"https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920","dimRatio":70,"overlayColor":"black","minHeight":400,"align":"full"} -->
+<div class="wp-block-cover alignfull" style="min-height:400px"><span aria-hidden="true" class="wp-block-cover__background has-black-background-color has-background-dim-70 has-background-dim"></span><img class="wp-block-cover__image-background" alt="Kontakt" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920" data-object-fit="cover"/><div class="wp-block-cover__inner-container">
+<!-- wp:heading {"textAlign":"center","level":2,"style":{"color":{"text":"#ffffff"}}} -->
+<h2 class="has-text-align-center has-text-color" style="color:#ffffff">Gotowy na zmiany?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","style":{"color":{"text":"#ffffff"}}} -->
+<p class="has-text-align-center has-text-color" style="color:#ffffff">Skontaktuj się z nami i otrzymaj darmową wycenę</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons">
+<!-- wp:button {"backgroundColor":"#f39c12","textColor":"white"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-white-color has-background" style="background-color:#f39c12" href="/kontakt">Skontaktuj się</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+</div></div>
+<!-- /wp:cover -->
+        ]]></content:encoded>
+        <wp:post_id>201</wp:post_id>
+        <wp:post_date><![CDATA[2025-01-30 12:00:00]]></wp:post_date>
+        <wp:post_name><![CDATA[strona-glowna]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[elementor-full-width.php]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+</channel>
+</rss>

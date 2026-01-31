@@ -1,0 +1,651 @@
+/**
+ * Neve Lite Elementor Compatibility Styles
+ *
+ * @package Neve_Lite
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   TABLE OF CONTENTS
+   ==========================================================================
+   1. Elementor Full Width
+   2. Elementor Canvas
+   3. Elementor Widgets
+   4. Elementor Global Styles
+   5. Elementor Pro Support
+   6. Responsive
+   ========================================================================== */
+
+/* ==========================================================================
+   1. Elementor Full Width
+   ========================================================================== */
+
+.nv-elementor-full-width-page .nv-site-content {
+    padding: 0;
+}
+
+.nv-elementor-full-width-page .nv-container {
+    max-width: 100%;
+    padding: 0;
+}
+
+.nv-elementor-full-width-page .nv-content-wrap {
+    display: block;
+}
+
+.nv-elementor-full-width-page .nv-content-area {
+    max-width: 100%;
+}
+
+.nv-elementor-full-width-page .elementor-section-wrap {
+    width: 100%;
+}
+
+.nv-elementor-full-width-page .elementor-section-boxed > .elementor-container {
+    max-width: var(--nv-container-width);
+}
+
+/* ==========================================================================
+   2. Elementor Canvas
+   ========================================================================== */
+
+.nv-elementor-canvas-page {
+    min-height: 100vh;
+}
+
+.nv-elementor-canvas-page .elementor-section-wrap {
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+   3. Elementor Widgets
+   ========================================================================== */
+
+/* Fix for Elementor buttons */
+.elementor-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--nv-spacing-xs);
+}
+
+.elementor-button .elementor-button-text {
+    order: 2;
+}
+
+.elementor-button .elementor-button-icon {
+    order: 1;
+}
+
+/* Fix for Elementor forms */
+.elementor-form .elementor-field-group {
+    margin-bottom: var(--nv-spacing-md);
+}
+
+.elementor-form .elementor-field-textual {
+    padding: var(--nv-spacing-sm) var(--nv-spacing-md);
+    border: 1px solid var(--nv-border-color);
+    border-radius: var(--nv-border-radius-sm);
+    transition: border-color var(--nv-transition-fast), box-shadow var(--nv-transition-fast);
+}
+
+.elementor-form .elementor-field-textual:focus {
+    outline: none;
+    border-color: var(--nv-primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.1);
+}
+
+.elementor-form .elementor-button {
+    padding: var(--nv-spacing-sm) var(--nv-spacing-lg);
+    border-radius: var(--nv-border-radius-sm);
+    transition: background var(--nv-transition-fast), transform var(--nv-transition-fast);
+}
+
+.elementor-form .elementor-button:hover {
+    transform: translateY(-1px);
+}
+
+/* Fix for Elementor images */
+.elementor-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Fix for Elementor galleries */
+.elementor-gallery__container {
+    display: grid;
+    gap: var(--nv-spacing-md);
+}
+
+/* Fix for Elementor posts widget */
+.elementor-posts-container {
+    display: grid;
+    gap: var(--nv-spacing-lg);
+}
+
+.elementor-posts-container .elementor-post {
+    background: var(--nv-background-color);
+    border-radius: var(--nv-border-radius-md);
+    overflow: hidden;
+    transition: box-shadow var(--nv-transition-base);
+}
+
+.elementor-posts-container .elementor-post:hover {
+    box-shadow: var(--nv-shadow-md);
+}
+
+.elementor-posts-container .elementor-post__thumbnail {
+    overflow: hidden;
+}
+
+.elementor-posts-container .elementor-post__thumbnail img {
+    width: 100%;
+    height: auto;
+    transition: transform var(--nv-transition-smooth);
+}
+
+.elementor-posts-container .elementor-post:hover .elementor-post__thumbnail img {
+    transform: scale(1.05);
+}
+
+.elementor-posts-container .elementor-post__text {
+    padding: var(--nv-spacing-md);
+}
+
+/* Fix for Elementor portfolio */
+.elementor-portfolio-item {
+    overflow: hidden;
+    border-radius: var(--nv-border-radius-md);
+}
+
+.elementor-portfolio-item__overlay {
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity var(--nv-transition-base);
+}
+
+.elementor-portfolio-item:hover .elementor-portfolio-item__overlay {
+    opacity: 1;
+}
+
+/* Fix for Elementor testimonials */
+.elementor-testimonial {
+    padding: var(--nv-spacing-lg);
+    background: var(--nv-background-alt);
+    border-radius: var(--nv-border-radius-md);
+}
+
+.elementor-testimonial__content {
+    margin-bottom: var(--nv-spacing-md);
+}
+
+.elementor-testimonial__text {
+    font-style: italic;
+    color: var(--nv-text-muted);
+}
+
+.elementor-testimonial__cite {
+    display: flex;
+    align-items: center;
+    gap: var(--nv-spacing-sm);
+}
+
+.elementor-testimonial__photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.elementor-testimonial__name {
+    font-weight: var(--nv-font-weight-medium);
+}
+
+.elementor-testimonial__title {
+    font-size: var(--nv-font-size-small);
+    color: var(--nv-text-muted);
+}
+
+/* Fix for Elementor pricing tables */
+.elementor-price-table {
+    background: var(--nv-background-color);
+    border: 1px solid var(--nv-border-color);
+    border-radius: var(--nv-border-radius-md);
+    overflow: hidden;
+    transition: box-shadow var(--nv-transition-base), transform var(--nv-transition-base);
+}
+
+.elementor-price-table:hover {
+    box-shadow: var(--nv-shadow-md);
+    transform: translateY(-5px);
+}
+
+.elementor-price-table__header {
+    padding: var(--nv-spacing-lg);
+    background: var(--nv-background-alt);
+    text-align: center;
+}
+
+.elementor-price-table__heading {
+    font-size: 1.25rem;
+    font-weight: var(--nv-font-weight-bold);
+    margin-bottom: var(--nv-spacing-sm);
+}
+
+.elementor-price-table__price {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--nv-spacing-xs);
+}
+
+.elementor-price-table__currency {
+    font-size: 1.5rem;
+    font-weight: var(--nv-font-weight-bold);
+}
+
+.elementor-price-table__integer-part {
+    font-size: 3rem;
+    font-weight: var(--nv-font-weight-bold);
+    line-height: 1;
+}
+
+.elementor-price-table__fractional-part {
+    font-size: 1.5rem;
+    font-weight: var(--nv-font-weight-bold);
+}
+
+.elementor-price-table__period {
+    font-size: var(--nv-font-size-small);
+    color: var(--nv-text-muted);
+}
+
+.elementor-price-table__features-list {
+    padding: var(--nv-spacing-lg);
+    list-style: none;
+}
+
+.elementor-price-table__feature {
+    padding: var(--nv-spacing-sm) 0;
+    border-bottom: 1px solid var(--nv-border-color);
+    text-align: center;
+}
+
+.elementor-price-table__feature:last-child {
+    border-bottom: none;
+}
+
+.elementor-price-table__footer {
+    padding: var(--nv-spacing-lg);
+    text-align: center;
+}
+
+.elementor-price-table__button {
+    display: inline-block;
+    padding: var(--nv-spacing-sm) var(--nv-spacing-lg);
+    background: var(--nv-primary-color);
+    color: #ffffff;
+    border-radius: var(--nv-border-radius-sm);
+    font-weight: var(--nv-font-weight-medium);
+    transition: background var(--nv-transition-fast);
+}
+
+.elementor-price-table__button:hover {
+    background: var(--nv-primary-hover);
+}
+
+/* Fix for Elementor tabs */
+.elementor-tabs {
+    border: 1px solid var(--nv-border-color);
+    border-radius: var(--nv-border-radius-md);
+    overflow: hidden;
+}
+
+.elementor-tabs-wrapper {
+    display: flex;
+    background: var(--nv-background-alt);
+    border-bottom: 1px solid var(--nv-border-color);
+}
+
+.elementor-tab-title {
+    padding: var(--nv-spacing-md);
+    color: var(--nv-text-muted);
+    font-weight: var(--nv-font-weight-medium);
+    cursor: pointer;
+    transition: color var(--nv-transition-fast), background var(--nv-transition-fast);
+}
+
+.elementor-tab-title:hover {
+    color: var(--nv-text-color);
+    background: var(--nv-background-color);
+}
+
+.elementor-tab-title.elementor-active {
+    color: var(--nv-primary-color);
+    background: var(--nv-background-color);
+    border-bottom: 2px solid var(--nv-primary-color);
+}
+
+.elementor-tabs-content-wrapper {
+    padding: var(--nv-spacing-lg);
+}
+
+/* Fix for Elementor accordions */
+.elementor-accordion {
+    border: 1px solid var(--nv-border-color);
+    border-radius: var(--nv-border-radius-md);
+    overflow: hidden;
+}
+
+.elementor-accordion-item {
+    border-bottom: 1px solid var(--nv-border-color);
+}
+
+.elementor-accordion-item:last-child {
+    border-bottom: none;
+}
+
+.elementor-accordion-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--nv-spacing-md);
+    background: var(--nv-background-alt);
+    cursor: pointer;
+    transition: background var(--nv-transition-fast);
+}
+
+.elementor-accordion-title:hover {
+    background: var(--nv-background-color);
+}
+
+.elementor-accordion-title.elementor-active {
+    background: var(--nv-background-color);
+}
+
+.elementor-accordion-icon {
+    transition: transform var(--nv-transition-fast);
+}
+
+.elementor-accordion-title.elementor-active .elementor-accordion-icon {
+    transform: rotate(180deg);
+}
+
+.elementor-accordion-content {
+    padding: var(--nv-spacing-md);
+}
+
+/* Fix for Elementor toggles */
+.elementor-toggle {
+    border: 1px solid var(--nv-border-color);
+    border-radius: var(--nv-border-radius-md);
+    overflow: hidden;
+}
+
+.elementor-toggle-item {
+    border-bottom: 1px solid var(--nv-border-color);
+}
+
+.elementor-toggle-item:last-child {
+    border-bottom: none;
+}
+
+.elementor-toggle-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--nv-spacing-md);
+    background: var(--nv-background-alt);
+    cursor: pointer;
+    transition: background var(--nv-transition-fast);
+}
+
+.elementor-toggle-title:hover {
+    background: var(--nv-background-color);
+}
+
+.elementor-toggle-title.elementor-active {
+    background: var(--nv-background-color);
+}
+
+.elementor-toggle-icon {
+    transition: transform var(--nv-transition-fast);
+}
+
+.elementor-toggle-title.elementor-active .elementor-toggle-icon {
+    transform: rotate(45deg);
+}
+
+.elementor-toggle-content {
+    padding: var(--nv-spacing-md);
+}
+
+/* Fix for Elementor counters */
+.elementor-counter {
+    text-align: center;
+    padding: var(--nv-spacing-lg);
+}
+
+.elementor-counter-number-wrapper {
+    font-size: 3rem;
+    font-weight: var(--nv-font-weight-bold);
+    color: var(--nv-primary-color);
+    line-height: 1;
+    margin-bottom: var(--nv-spacing-sm);
+}
+
+.elementor-counter-title {
+    font-size: var(--nv-font-size-small);
+    color: var(--nv-text-muted);
+}
+
+/* Fix for Elementor progress bars */
+.elementor-progress-wrapper {
+    background: var(--nv-background-alt);
+    border-radius: var(--nv-border-radius-sm);
+    overflow: hidden;
+}
+
+.elementor-progress-bar {
+    height: 10px;
+    background: var(--nv-primary-color);
+    border-radius: var(--nv-border-radius-sm);
+    transition: width 1s ease;
+}
+
+/* Fix for Elementor sliders */
+.elementor-swiper {
+    position: relative;
+}
+
+.elementor-swiper-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--nv-background-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--nv-shadow-sm);
+    z-index: 10;
+    cursor: pointer;
+    transition: background var(--nv-transition-fast), color var(--nv-transition-fast);
+}
+
+.elementor-swiper-button:hover {
+    background: var(--nv-primary-color);
+    color: #ffffff;
+}
+
+.elementor-swiper-button-prev {
+    left: var(--nv-spacing-md);
+}
+
+.elementor-swiper-button-next {
+    right: var(--nv-spacing-md);
+}
+
+/* Fix for Elementor social icons */
+.elementor-social-icons-wrapper {
+    display: flex;
+    gap: var(--nv-spacing-sm);
+}
+
+.elementor-social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--nv-background-alt);
+    border-radius: 50%;
+    transition: background var(--nv-transition-fast), color var(--nv-transition-fast), transform var(--nv-transition-fast);
+}
+
+.elementor-social-icon:hover {
+    background: var(--nv-primary-color);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   4. Elementor Global Styles
+   ========================================================================== */
+
+/* Typography */
+.elementor-widget-heading .elementor-heading-title {
+    line-height: var(--nv-line-height-heading);
+}
+
+.elementor-widget-text-editor {
+    line-height: var(--nv-line-height-base);
+}
+
+.elementor-widget-text-editor p {
+    margin-bottom: var(--nv-spacing-md);
+}
+
+.elementor-widget-text-editor p:last-child {
+    margin-bottom: 0;
+}
+
+/* Buttons */
+.elementor-button-wrapper {
+    display: inline-block;
+}
+
+.elementor-button {
+    border-radius: var(--nv-border-radius-sm);
+    transition: all var(--nv-transition-fast);
+}
+
+.elementor-button:hover {
+    transform: translateY(-1px);
+}
+
+/* Spacing */
+.elementor-section {
+    padding: var(--nv-spacing-xl) 0;
+}
+
+.elementor-column-gap-default > .elementor-column > .elementor-element-populated {
+    padding: var(--nv-spacing-md);
+}
+
+/* ==========================================================================
+   5. Elementor Pro Support
+   ========================================================================== */
+
+/* Theme Builder */
+.elementor-location-header {
+    position: relative;
+    z-index: 100;
+}
+
+.elementor-location-footer {
+    margin-top: auto;
+}
+
+/* Popup Builder */
+.elementor-popup-modal {
+    z-index: 9999;
+}
+
+/* WooCommerce Builder */
+.elementor-widget-woocommerce-products .products {
+    display: grid;
+    grid-template-columns: repeat(var(--columns, 4), 1fr);
+    gap: var(--nv-spacing-lg);
+}
+
+.elementor-widget-woocommerce-products .product {
+    background: var(--nv-background-color);
+    border-radius: var(--nv-border-radius-md);
+    overflow: hidden;
+    transition: box-shadow var(--nv-transition-base);
+}
+
+.elementor-widget-woocommerce-products .product:hover {
+    box-shadow: var(--nv-shadow-md);
+}
+
+/* Form Builder */
+.elementor-field-type-upload .elementor-field-subgroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nv-spacing-sm);
+}
+
+/* ==========================================================================
+   6. Responsive
+   ========================================================================== */
+
+@media screen and (max-width: 991px) {
+    .elementor-section {
+        padding: var(--nv-spacing-lg) 0;
+    }
+    
+    .elementor-widget-woocommerce-products .products {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .elementor-section {
+        padding: var(--nv-spacing-md) 0;
+    }
+    
+    .elementor-widget-woocommerce-products .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .elementor-tabs-wrapper {
+        flex-wrap: wrap;
+    }
+    
+    .elementor-tab-title {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .elementor-swiper-button {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .elementor-widget-woocommerce-products .products {
+        grid-template-columns: 1fr;
+    }
+    
+    .elementor-price-table__integer-part {
+        font-size: 2rem;
+    }
+    
+    .elementor-counter-number-wrapper {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,52 @@
+/**
+ * Theme Name: Neve Lite Child
+ * Theme URI: https://neve-lite.com
+ * Author: Neve Lite Team
+ * Author URI: https://neve-lite.com
+ * Description: Child theme for Neve Lite.
+ * Version: 1.0.0
+ * Requires at least: 6.0
+ * Requires PHP: 8.0
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Template: neve-lite
+ * Text Domain: neve-lite-child
+ *
+ * This is a child theme for Neve Lite. It inherits all styles and functionality
+ * from the parent theme while allowing for custom modifications.
+ */
+
+/* ==========================================================================
+   CHILD THEME CUSTOM STYLES
+   ==========================================================================
+   Add your custom styles below this line.
+   ========================================================================== */
+
+/* Example: Custom primary color */
+/*
+:root {
+    --nv-primary-color: #ff6b6b;
+    --nv-primary-hover: #ee5a5a;
+}
+*/
+
+/* Example: Custom header styles */
+/*
+.nv-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.nv-header .nv-logo-text,
+.nv-header .nv-nav-menu a {
+    color: #ffffff;
+}
+*/
+
+/* Example: Custom button styles */
+/*
+.nv-button {
+    border-radius: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+*/

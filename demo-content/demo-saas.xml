@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Demo 5: Produkt Cyfrowy / SaaS - CloudFlow - Zarządzanie Projektami
+-->
+<rss version="2.0"
+    xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:wp="http://wordpress.org/export/1.2/"
+>
+<channel>
+    <title>CloudFlow - Inteligentne Zarządzanie Projektami</title>
+    <link>https://demo.neve-lite.com/saas</link>
+    <description>Platforma do zarządzania projektami, zespołami i zadaniami w jednym miejscu</description>
+    <pubDate>Thu, 30 Jan 2025 12:00:00 +0000</pubDate>
+    <language>pl-PL</language>
+    <wp:wxr_version>1.2</wp:wxr_version>
+
+    <!-- HOMEPAGE / LANDING PAGE -->
+    <item>
+        <title>Strona główna</title>
+        <link>https://demo.neve-lite.com/saas/</link>
+        <pubDate>Thu, 30 Jan 2025 12:00:00 +0000</pubDate>
+        <dc:creator><![CDATA[admin]]></dc:creator>
+        <guid isPermaLink="false">https://demo.neve-lite.com/saas/?page_id=1</guid>
+        <content:encoded><![CDATA[
+<!-- wp:group {"style":{"backgroundColor":"#6366f1","spacing":{"padding":{"top":"100px","bottom":"100px"}}},"align":"full"} -->
+<div class="wp-block-group alignfull has-background" style="background-color:#6366f1;padding-top:100px;padding-bottom:100px">
+<!-- wp:columns {"verticalAlignment":"center"} -->
+<div class="wp-block-columns are-vertically-aligned-center">
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:heading {"level":1,"style":{"color":{"text":"#ffffff"},"typography":{"fontSize":"48px"}}} -->
+<h1 class="has-text-color" style="color:#ffffff;font-size:48px">Zarządzaj projektami<br/>jak nigdy dotąd</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"style":{"color":{"text":"#e0e7ff"}}} -->
+<p class="has-text-color" style="color:#e0e7ff">CloudFlow łączy zadania, zespoły i narzędzia w jednej inteligentnej platformie. Pracuj mądrzej, osiągaj więcej.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button {"backgroundColor":"white","textColor":"#6366f1"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background" style="color:#6366f1;background-color:#ffffff" href="/rejestracja">Zacznij za darmo</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"backgroundColor":"transparent","textColor":"white","className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-white-color has-transparent-background-color has-text-color has-background" href="/demo">Zobacz demo</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph {"style":{"color":{"text":"#a5b4fc"},"typography":{"fontSize":"14px"}}} -->
+<p class="has-text-color" style="color:#a5b4fc;font-size:14px">Bez karty kredytowej • 14 dni trial • Anuluj w każdej chwili</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center">
+<!-- wp:image {"sizeSlug":"large"} -->
+<figure class="wp-block-image size-large"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" alt="Dashboard"/></figure>
+<!-- /wp:image -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"60px","bottom":"60px"}}},"backgroundColor":"#f8fafc"} -->
+<div class="wp-block-group has-background" style="background-color:#f8fafc;padding-top:60px;padding-bottom:60px">
+<!-- wp:paragraph {"align":"center","style":{"color":{"text":"#64748b"}}} -->
+<p class="has-text-align-center has-text-color" style="color:#64748b">Zaufali nam liderzy z ponad 500 firm</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"columns":5,"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-5 is-cropped">
+<img src="https://via.placeholder.com/120x40/f1f5f9/64748b?text=TechCorp" alt="Logo 1"/>
+<img src="https://via.placeholder.com/120x40/f1f5f9/64748b?text=DataFlow" alt="Logo 2"/>
+<img src="https://via.placeholder.com/120x40/f1f5f9/64748b?text=CloudSys" alt="Logo 3"/>
+<img src="https://via.placeholder.com/120x40/f1f5f9/64748b?text=AppWorks" alt="Logo 4"/>
+<img src="https://via.placeholder.com/120x40/f1f5f9/64748b?text=DevTeam" alt="Logo 5"/>
+</figure>
+<!-- /wp:gallery -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"80px","bottom":"80px"}}}} -->
+<div class="wp-block-group" style="padding-top:80px;padding-bottom:80px">
+<!-- wp:heading {"textAlign":"center","level":2} -->
+<h2 class="has-text-align-center">Wszystko czego potrzebujesz<br/>w jednym miejscu</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"20px"}}} -->
+<h3 style="font-size:20px">📋 Zarządzanie zadaniami</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Twórz, przypisuj i śledź zadania. Widoki Kanban, lista i kalendarz dopasowane do Twojego stylu pracy.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"20px"}}} -->
+<h3 style="font-size:20px">👥 Współpraca zespołowa</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Komentarze, wzmianki, udostępnianie plików. Komunikuj się bez opuszczania platformy.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"20px"}}} -->
+<h3 style="font-size:20px">📊 Raporty i analizy</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Śledź postępy, identyfikuj wąskie gardła, generuj raporty dla klientów i zarządu.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"20px"}}} -->
+<h3 style="font-size:20px">⏱️ Śledzenie czasu</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Rejestruj czas pracy nad zadaniami. Automatyczne raporty rozliczeniowe.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"20px"}}} -->
+<h3 style="font-size:20px">🔌 Integracje</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Połącz z Slack, GitHub, Google Drive, Jira i 50+ innymi narzędziami.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"20px"}}} -->
+<h3 style="font-size:20px">🔒 Bezpieczeństwo</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Szyfrowanie SSL, dwuetapowa weryfikacja, kopie zapasowe. Twoje dane są bezpieczne.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"backgroundColor":"#f8fafc","spacing":{"padding":{"top":"80px","bottom":"80px"}}}} -->
+<div class="wp-block-group has-background" style="background-color:#f8fafc;padding-top:80px;padding-bottom:80px">
+<!-- wp:heading {"textAlign":"center","level":2} -->
+<h2 class="has-text-align-center">Proste, przejrzyste ceny</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"style":{"backgroundColor":"white","spacing":{"padding":{"top":"40px","right":"40px","bottom":"40px","left":"40px"}},"border":{"radius":"12px"}}} -->
+<div class="wp-block-group has-white-background-color has-background" style="border-radius:12px;padding-top:40px;padding-right:40px;padding-bottom:40px;padding-left:40px">
+<!-- wp:heading {"textAlign":"center","level":3} -->
+<h3 class="has-text-align-center">Starter</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"36px","fontWeight":"700"}}} -->
+<p class="has-text-align-center" style="font-size:36px;font-weight:700">0 zł</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">/miesiąc</p>
+<!-- /wp:paragraph -->
+<!-- wp:list -->
+<ul>
+<li>Do 3 projektów</li>
+<li>Do 5 członków zespołu</li>
+<li>1GB przestrzeni</li>
+<li>Podstawowe widoki</li>
+</ul>
+<!-- /wp:list -->
+<!-- wp:button {"backgroundColor":"#e2e8f0","textColor":"#475569","width":100} -->
+<div class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link has-text-color has-background" style="color:#475569;background-color:#e2e8f0" href="/rejestracja">Rozpocznij za darmo</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"style":{"backgroundColor":"#6366f1","spacing":{"padding":{"top":"40px","right":"40px","bottom":"40px","left":"40px"}},"border":{"radius":"12px"}}} -->
+<div class="wp-block-group has-background" style="background-color:#6366f1;border-radius:12px;padding-top:40px;padding-right:40px;padding-bottom:40px;padding-left:40px">
+<!-- wp:heading {"textAlign":"center","level":3,"style":{"color":{"text":"#ffffff"}}} -->
+<h3 class="has-text-align-center has-text-color" style="color:#ffffff">Pro</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"36px","fontWeight":"700"},"color":{"text":"#ffffff"}}} -->
+<p class="has-text-align-center has-text-color" style="color:#ffffff;font-size:36px;font-weight:700">49 zł</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"align":"center","style":{"color":{"text":"#e0e7ff"}}} -->
+<p class="has-text-align-center has-text-color" style="color:#e0e7ff">/miesiąc</p>
+<!-- /wp:paragraph -->
+<!-- wp:list {"style":{"color":{"text":"#ffffff"}}} -->
+<ul class="has-text-color" style="color:#ffffff">
+<li>Nieograniczone projekty</li>
+<li>Do 20 członków zespołu</li>
+<li>50GB przestrzeni</li>
+<li>Zaawansowane raporty</li>
+<li>Integracje</li>
+</ul>
+<!-- /wp:list -->
+<!-- wp:button {"backgroundColor":"white","textColor":"#6366f1","width":100} -->
+<div class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link has-text-color has-background" style="color:#6366f1;background-color:#ffffff" href="/rejestracja">Wybierz Pro</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:group {"style":{"backgroundColor":"white","spacing":{"padding":{"top":"40px","right":"40px","bottom":"40px","left":"40px"}},"border":{"radius":"12px"}}} -->
+<div class="wp-block-group has-white-background-color has-background" style="border-radius:12px;padding-top:40px;padding-right:40px;padding-bottom:40px;padding-left:40px">
+<!-- wp:heading {"textAlign":"center","level":3} -->
+<h3 class="has-text-align-center">Enterprise</h3>
+<!-- /wp:heading -->
+<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"36px","fontWeight":"700"}}} -->
+<p class="has-text-align-center" style="font-size:36px;font-weight:700">199 zł</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">/miesiąc</p>
+<!-- /wp:paragraph -->
+<!-- wp:list -->
+<ul>
+<li>Wszystko z Pro</li>
+<li>Nieograniczona liczba użytkowników</li>
+<li>500GB przestrzeni</li>
+<li>Dedykowany opiekun</li>
+<li>SLA i wsparcie 24/7</li>
+<li>Dostosowanie pod markę</li>
+</ul>
+<!-- /wp:list -->
+<!-- wp:button {"backgroundColor":"#e2e8f0","textColor":"#475569","width":100} -->
+<div class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link has-text-color has-background" style="color:#475569;background-color:#e2e8f0" href="/kontakt">Skontaktuj się</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"80px","bottom":"80px"}}}} -->
+<div class="wp-block-group" style="padding-top:80px;padding-bottom:80px">
+<!-- wp:heading {"textAlign":"center","level":2} -->
+<h2 class="has-text-align-center">Często zadawane pytania</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":4} -->
+<h4>Czy mogę zmienić plan w trakcie?</h4>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Tak, możesz zmienić plan w dowolnym momencie. Zmiany wchodzą w życie od następnego okresu rozliczeniowego.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":4} -->
+<h4>Czy moje dane są bezpieczne?</h4>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Absolutnie. Używamy szyfrowania SSL, regularnie robimy kopie zapasowe i hostujemy dane w certyfikowanych centrach danych w UE.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column">
+<!-- wp:heading {"level":4} -->
+<h4>Jak długo trwa darmowy trial?</h4>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Oferujemy 14-dniowy darmowy trial planu Pro. Nie wymagamy karty kredytowej do rozpoczęcia.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":4} -->
+<h4>Czy oferujecie zwrot pieniędzy?</h4>
+<!-- /wp:heading -->
+<!-- wp:paragraph -->
+<p>Tak, masz 30 dni na zwrot bez podawania przyczyny. Zwracamy 100% kwoty.</p>
+<!-- /wp:paragraph -->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"backgroundColor":"#6366f1","spacing":{"padding":{"top":"60px","bottom":"60px"}}},"align":"full"} -->
+<div class="wp-block-group alignfull has-background" style="background-color:#6366f1;padding-top:60px;padding-bottom:60px">
+<!-- wp:heading {"textAlign":"center","level":2,"style":{"color":{"text":"#ffffff"}}} -->
+<h2 class="has-text-align-center has-text-color" style="color:#ffffff">Gotowy usprawnić pracę swojego zespołu?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons">
+<!-- wp:button {"backgroundColor":"white","textColor":"#6366f1"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background" style="color:#6366f1;background-color:#ffffff" href="/rejestracja">Rozpocznij za darmo</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+</div>
+<!-- /wp:group -->
+        ]]></content:encoded>
+        <wp:post_id>401</wp:post_id>
+        <wp:post_date><![CDATA[2025-01-30 12:00:00]]></wp:post_date>
+        <wp:post_name><![CDATA[strona-glowna]]></wp:post_name>
+        <wp:status><![CDATA[publish]]></wp:status>
+        <wp:post_type><![CDATA[page]]></wp:post_type>
+        <wp:postmeta>
+            <wp:meta_key><![CDATA[_wp_page_template]]></wp:meta_key>
+            <wp:meta_value><![CDATA[elementor-full-width.php]]></wp:meta_value>
+        </wp:postmeta>
+    </item>
+
+</channel>
+</rss>
