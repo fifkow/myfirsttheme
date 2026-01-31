@@ -35,9 +35,6 @@ class Neve_Lite_Onboarding {
 		add_action( 'wp_ajax_neve_onboarding_import_content', array( $this, 'ajax_import_content' ) );
 	}
 
-	/**
-	 * Redirect to onboarding page after theme activation
-	 */
 	public function redirect_on_activation() {
 		global $pagenow;
 		if ( is_admin() && 'themes.php' === $pagenow && isset( $_GET['activated'] ) ) {
@@ -61,8 +58,8 @@ class Neve_Lite_Onboarding {
 			return;
 		}
 
-		wp_enqueue_style( 'neve-onboarding-css', get_template_directory_uri() . '/assets/css/onboarding.css', array(), '1.1.0' );
-		wp_enqueue_script( 'neve-onboarding-js', get_template_directory_uri() . '/assets/js/onboarding.js', array( 'jquery', 'wp-util', 'updates' ), '1.1.0', true );
+		wp_enqueue_style( 'neve-onboarding-css', get_template_directory_uri() . '/assets/css/onboarding.css', array(), '1.2.0' );
+		wp_enqueue_script( 'neve-onboarding-js', get_template_directory_uri() . '/assets/js/onboarding.js', array( 'jquery', 'wp-util', 'updates' ), '1.2.0', true );
 
 		wp_localize_script(
 			'neve-onboarding-js',
@@ -76,42 +73,47 @@ class Neve_Lite_Onboarding {
 	}
 
 	private function get_demos_data() {
-		// Upewnij się, że ścieżki do obrazków są poprawne
 		$base_img = get_template_directory_uri() . '/assets/images/demos/';
 
 		return array(
 			'sportswear' => array(
 				'title'   => 'Sklep Sportowy (Fashion)',
+				'desc'    => 'Idealny dla e-commerce. Nowoczesny design, duży nacisk na zdjęcia produktów.',
 				'preview' => $base_img . 'sportswear.jpg',
 				'xml'     => 'demo-sportswear-shop.xml',
 				'plugins' => array( 'woocommerce' ),
 			),
 			'beauty'     => array(
 				'title'   => 'Salon Beauty',
+				'desc'    => 'Elegancki, delikatny styl dla salonów kosmetycznych i SPA.',
 				'preview' => $base_img . 'beauty.jpg',
 				'xml'     => 'demo-beauty-salon.xml',
 				'plugins' => array(),
 			),
 			'construction' => array(
 				'title'   => 'Firma Budowlana',
+				'desc'    => 'Solidny i konkretny layout dla branży budowlanej i remontowej.',
 				'preview' => $base_img . 'construction.jpg',
 				'xml'     => 'demo-construction.xml',
 				'plugins' => array(),
 			),
 			'restaurant' => array(
 				'title'   => 'Restauracja',
+				'desc'    => 'Apetyczny design z menu i galerią potraw.',
 				'preview' => $base_img . 'restaurant.jpg',
 				'xml'     => 'demo-restaurant.xml',
 				'plugins' => array(),
 			),
 			'saas'       => array(
 				'title'   => 'SaaS / Startup',
+				'desc'    => 'Czysty, technologiczny styl dla aplikacji i usług online.',
 				'preview' => $base_img . 'saas.jpg',
 				'xml'     => 'demo-saas.xml',
 				'plugins' => array(),
 			),
 			'blog'       => array(
 				'title'   => 'Blog Osobisty',
+				'desc'    => 'Minimalistyczny szablon skupiony na treści.',
 				'preview' => $base_img . 'blog.jpg',
 				'xml'     => 'demo-blog.xml',
 				'plugins' => array(),
@@ -125,37 +127,37 @@ class Neve_Lite_Onboarding {
 			<div class="neve-onboarding-container">
 				<header class="neve-header">
 					<div class="header-content">
-						<h1><?php esc_html_e( 'Witaj w konfiguratorze!', 'neve-lite' ); ?></h1>
-						<p><?php esc_html_e( 'Ten kreator pomoże Ci zaimportować gotową stronę demo i niezbędne wtyczki.', 'neve-lite' ); ?></p>
+						<h1><?php esc_html_e( 'Konfigurator Motywu', 'neve-lite' ); ?></h1>
+						<p><?php esc_html_e( 'Wybierz gotowy projekt i uruchom swoją stronę w kilka minut.', 'neve-lite' ); ?></p>
 					</div>
 					<div class="steps-indicator">
 						<span class="step-dot active" data-step="1">1. Wybierz Demo</span>
-						<span class="step-dot" data-step="2">2. Builder</span>
-						<span class="step-dot" data-step="3">3. Import</span>
+						<span class="step-dot" data-step="2">2. Narzędzia</span>
+						<span class="step-dot" data-step="3">3. Instalacja</span>
 					</div>
 				</header>
 
 				<div id="neve-onboarding-app">
 					<div class="step-content step-select-demo active" data-step="1">
-						<h2><?php esc_html_e( 'Wybierz wygląd swojej strony', 'neve-lite' ); ?></h2>
+						<h2><?php esc_html_e( 'Wybierz szablon startowy', 'neve-lite' ); ?></h2>
 						<div class="demos-grid">
 							</div>
 					</div>
 
 					<div class="step-content step-select-builder" data-step="2">
-						<h2><?php esc_html_e( 'Wybierz swój Page Builder', 'neve-lite' ); ?></h2>
-						<p class="step-desc"><?php esc_html_e( 'Z jakim narzędziem chcesz pracować?', 'neve-lite' ); ?></p>
+						<h2><?php esc_html_e( 'Preferowany edytor treści', 'neve-lite' ); ?></h2>
+						<p class="step-desc"><?php esc_html_e( 'Wybierz narzędzie, którym będziesz edytować swoją stronę.', 'neve-lite' ); ?></p>
 
 						<div class="builders-grid">
 							<div class="builder-card selected" data-builder="gutenberg">
 								<div class="builder-icon"><span class="dashicons dashicons-editor-table"></span></div>
 								<h3>Gutenberg</h3>
-								<p>Domyślny edytor WordPress. Szybki i lekki.</p>
+								<p>Szybki, natywny edytor WordPress. Najlepszy dla wydajności.</p>
 							</div>
 							<div class="builder-card" data-builder="elementor">
 								<div class="builder-icon"><span class="dashicons dashicons-art"></span></div>
 								<h3>Elementor</h3>
-								<p>Najpopularniejszy Page Builder. Duże możliwości.</p>
+								<p>Zaawansowany edytor wizualny metodą przeciągnij i upuść.</p>
 							</div>
 						</div>
 
@@ -166,8 +168,8 @@ class Neve_Lite_Onboarding {
 					</div>
 
 					<div class="step-content step-import" data-step="3">
-						<h2><?php esc_html_e( 'Instalujemy Twoją stronę...', 'neve-lite' ); ?></h2>
-						<p class="step-desc"><?php esc_html_e( 'Nie zamykaj tej karty. To może potrwać kilka minut.', 'neve-lite' ); ?></p>
+						<h2><?php esc_html_e( 'Trwa instalacja...', 'neve-lite' ); ?></h2>
+						<p class="step-desc"><?php esc_html_e( 'Prosimy o cierpliwość. Pobieramy wtyczki i importujemy treści.', 'neve-lite' ); ?></p>
 
 						<div class="import-progress-box">
 							<ul class="import-progress-list">
@@ -175,20 +177,33 @@ class Neve_Lite_Onboarding {
 						</div>
 
 						<div class="step-actions center">
-							<button class="button button-primary button-hero start-import"><?php esc_html_e( 'Rozpocznij Instalację', 'neve-lite' ); ?></button>
+							<button class="button button-primary button-hero start-import"><?php esc_html_e( 'Rozpocznij Import', 'neve-lite' ); ?></button>
 						</div>
 					</div>
 
 					<div class="step-content step-success" data-step="4">
 						<div class="success-message">
 							<div class="success-icon"><span class="dashicons dashicons-yes-alt"></span></div>
-							<h2><?php esc_html_e( 'Gratulacje!', 'neve-lite' ); ?></h2>
-							<p><?php esc_html_e( 'Twoja strona jest gotowa do edycji.', 'neve-lite' ); ?></p>
+							<h2><?php esc_html_e( 'Wszystko gotowe!', 'neve-lite' ); ?></h2>
+							<p><?php esc_html_e( 'Twój serwis został pomyślnie zainstalowany.', 'neve-lite' ); ?></p>
 							<a href="<?php echo esc_url( home_url() ); ?>" class="button button-primary button-hero" target="_blank"><?php esc_html_e( 'Zobacz stronę', 'neve-lite' ); ?></a>
 						</div>
 					</div>
 				</div>
 			</div>
+
+			<div class="neve-modal-overlay">
+				<div class="neve-modal">
+					<button class="close-modal"><span class="dashicons dashicons-no-alt"></span></button>
+					<div class="neve-modal-content">
+						<img src="" alt="Demo Preview" id="modal-preview-image">
+					</div>
+					<div class="neve-modal-footer">
+						<button class="button button-primary select-demo-from-modal">Wybierz ten szablon</button>
+					</div>
+				</div>
+			</div>
+
 		</div>
 		<?php
 	}
@@ -202,7 +217,7 @@ class Neve_Lite_Onboarding {
 
 		$plugins_to_install = array();
 
-		// 1. ZAWSZE WordPress Importer (kluczowe do działania)
+		// 1. ZAWSZE WordPress Importer
 		$plugins_to_install[] = array('slug' => 'wordpress-importer', 'name' => 'WordPress Importer');
 
 		// 2. Elementor
@@ -210,7 +225,7 @@ class Neve_Lite_Onboarding {
 			$plugins_to_install[] = array('slug' => 'elementor', 'name' => 'Elementor');
 		}
 
-		// 3. WooCommerce jeśli wymagane
+		// 3. WooCommerce
 		$demos_data = $this->get_demos_data();
 		if ( isset( $demos_data[ $demo ] ) && in_array( 'woocommerce', $demos_data[ $demo ]['plugins'] ) ) {
 			$plugins_to_install[] = array('slug' => 'woocommerce', 'name' => 'WooCommerce');
@@ -218,7 +233,6 @@ class Neve_Lite_Onboarding {
 
 		$final_list = array();
 		foreach ( $plugins_to_install as $plugin ) {
-			// Sprawdzamy czy wtyczka jest aktywna. Jeśli nie (nawet jeśli zainstalowana) - dodajemy do listy, żeby skrypt ją aktywował
 			if ( ! is_plugin_active( $plugin['slug'] . '/' . $plugin['slug'] . '.php' ) ) {
 				$final_list[] = $plugin;
 			}
@@ -239,7 +253,6 @@ class Neve_Lite_Onboarding {
 		$plugin_main_file = $this->get_plugin_main_file( $slug );
 
 		if ( ! $plugin_main_file ) {
-			// Instalacja
 			$api = plugins_api( 'plugin_information', array( 'slug' => $slug, 'fields' => array( 'sections' => false ) ) );
 			if ( is_wp_error( $api ) ) wp_send_json_error( array( 'message' => $api->get_error_message() ) );
 
@@ -254,13 +267,14 @@ class Neve_Lite_Onboarding {
 			activate_plugin( $plugin_main_file );
 			wp_send_json_success( array( 'message' => "Zainstalowano $slug" ) );
 		} else {
-			wp_send_json_error( array( 'message' => "Błąd lokalizacji pliku $slug" ) );
+			wp_send_json_error( array( 'message' => "Błąd: nie znaleziono pliku wtyczki $slug po instalacji." ) );
 		}
 	}
 
 	private function get_plugin_main_file( $slug ) {
 		$plugins = get_plugins();
 		foreach ( $plugins as $file => $data ) {
+			// Szukamy po slugu w ścieżce
 			if ( strpos( $file, $slug . '/' ) === 0 ) return $file;
 		}
 		return false;
@@ -274,8 +288,9 @@ class Neve_Lite_Onboarding {
 
 		if ( ! defined( 'WP_LOAD_IMPORTERS' ) ) define( 'WP_LOAD_IMPORTERS', true );
 
-		// --- NAPRAWA BŁĘDU KRYTYCZNEGO ---
-		// 1. Najpierw ładujemy klasę bazową WordPressa (WP_Importer)
+		// --- NAPRAWA ŁADOWANIA IMPORTERA ---
+
+		// 1. Ładujemy klasę bazową WP_Importer
 		if ( ! class_exists( 'WP_Importer' ) ) {
 			$wp_importer_path = ABSPATH . 'wp-admin/includes/class-wp-importer.php';
 			if ( file_exists( $wp_importer_path ) ) {
@@ -283,22 +298,43 @@ class Neve_Lite_Onboarding {
 			}
 		}
 
-		// 2. Potem ładujemy klasę wtyczki (WP_Import)
-		// Szukamy ścieżki dynamicznie, bo czasem katalog różni się od sluga
-		$plugin_path = WP_PLUGIN_DIR . '/wordpress-importer/wordpress-importer.php';
-
-		if ( file_exists( $plugin_path ) ) {
-			require_once $plugin_path;
-		}
-
-		// 3. Sprawdzenie ostateczne
+		// 2. Ładujemy klasę wtyczki WP_Import (agresywne szukanie pliku)
 		if ( ! class_exists( 'WP_Import' ) ) {
-			wp_send_json_error( array(
-				'message' => 'Błąd krytyczny: Nie udało się załadować klasy WP_Import. Upewnij się, że wtyczka WordPress Importer została zainstalowana w poprzednim kroku.'
-			) );
+
+			// Ścieżka standardowa
+			$std_path = WP_PLUGIN_DIR . '/wordpress-importer/wordpress-importer.php';
+
+			if ( file_exists( $std_path ) ) {
+				require_once $std_path;
+			} else {
+				// Fallback: przeszukaj folder pluginów w poszukiwaniu pliku
+				$found = false;
+				$plugins = get_plugins();
+				foreach ( $plugins as $file => $data ) {
+					if ( strpos( $file, 'wordpress-importer' ) !== false ) {
+						$full_path = WP_PLUGIN_DIR . '/' . $file;
+						if ( file_exists( $full_path ) ) {
+							require_once $full_path;
+							$found = true;
+							break;
+						}
+					}
+				}
+
+				if ( ! $found ) {
+					wp_send_json_error( array(
+						'message' => 'Błąd krytyczny: Plik wtyczki WordPress Importer nie istnieje fizycznie na serwerze, mimo próby instalacji.'
+					) );
+				}
+			}
 		}
 
-		// Reszta logiki importu
+		// 3. Ostateczne sprawdzenie
+		if ( ! class_exists( 'WP_Import' ) ) {
+			wp_send_json_error( array( 'message' => 'Błąd: Klasa WP_Import nie załadowała się mimo dołączenia pliku. Prawdopodobnie konflikt wersji.' ) );
+		}
+
+		// Wykonanie importu
 		$demo = sanitize_text_field( $_POST['demo'] );
 		$demos_data = $this->get_demos_data();
 
@@ -312,9 +348,9 @@ class Neve_Lite_Onboarding {
 			$importer = new WP_Import();
 			$importer->fetch_attachments = true;
 			$importer->import( $xml_file );
-			$log = ob_get_clean();
+			ob_end_clean(); // Czyścimy output, bo importer dużo "gada"
 
-			// Ustawienia Home/Blog
+			// Konfiguracja Homepage
 			$homepage = get_page_by_title( 'Home' );
 			$blogpage = get_page_by_title( 'Blog' );
 			if ( $homepage ) {
@@ -323,14 +359,14 @@ class Neve_Lite_Onboarding {
 			}
 			if ( $blogpage ) update_option( 'page_for_posts', $blogpage->ID );
 
-			// Ustawienia Elementor
+			// Konfiguracja Elementor
 			if( 'elementor' === $_POST['builder'] ) {
 				update_option( 'elementor_cpt_support', array( 'page', 'post', 'product' ) );
 				update_option( 'elementor_disable_color_schemes', 'yes' );
 				update_option( 'elementor_disable_typography_schemes', 'yes' );
 			}
 
-			wp_send_json_success( array( 'message' => 'Import OK' ) );
+			wp_send_json_success( array( 'message' => 'Import zakończony sukcesem!' ) );
 
 		} catch ( Exception $e ) {
 			ob_end_clean();
