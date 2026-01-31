@@ -1,9 +1,8 @@
 <?php
 /**
- * Neve Lite Onboarding / Setup Wizard
+ * Obsługa wymaganych wtyczek (TGMPA) oraz konfiguracja One Click Demo Import.
  *
  * @package Neve_Lite
- * @since 1.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,416 +10,167 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Neve_Lite_Onboarding
+ * 1. ŁADOWANIE BIBLIOTEKI TGM PLUGIN ACTIVATION
+ * Upewnij się, że plik class-tgm-plugin-activation.php znajduje się w folderze /inc/
  */
-class Neve_Lite_Onboarding {
-
-	private static $instance;
-
-	public static function get_instance() {
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
-	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		add_action( 'after_switch_theme', array( $this, 'redirect_on_activation' ) );
-
-		// AJAX Handlers
-		add_action( 'wp_ajax_neve_onboarding_get_plugins', array( $this, 'ajax_get_plugins' ) );
-		add_action( 'wp_ajax_neve_onboarding_install_plugins', array( $this, 'ajax_install_plugin' ) );
-		add_action( 'wp_ajax_neve_onboarding_import_content', array( $this, 'ajax_import_content' ) );
-	}
-
-	public function redirect_on_activation() {
-		global $pagenow;
-		if ( is_admin() && 'themes.php' === $pagenow && isset( $_GET['activated'] ) ) {
-			wp_safe_redirect( admin_url( 'themes.php?page=neve-onboarding' ) );
-			exit;
-		}
-	}
-
-	public function add_menu_page() {
-		add_theme_page(
-			__( 'Neve Onboarding', 'neve-lite' ),
-			__( 'Neve Onboarding', 'neve-lite' ),
-			'manage_options',
-			'neve-onboarding',
-			array( $this, 'render_page' )
-		);
-	}
-
-	public function enqueue_scripts( $hook ) {
-		if ( 'appearance_page_neve-onboarding' !== $hook ) {
-			return;
-		}
-
-		wp_enqueue_style( 'neve-onboarding-css', get_template_directory_uri() . '/assets/css/onboarding.css', array(), '2.0.0' );
-		wp_enqueue_script( 'neve-onboarding-js', get_template_directory_uri() . '/assets/js/onboarding.js', array( 'jquery', 'wp-util', 'updates' ), '2.0.0', true );
-
-		wp_localize_script(
-			'neve-onboarding-js',
-			'neveOnboarding',
-			array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'neve_onboarding_nonce' ),
-				'demos'   => $this->get_demos_data(),
-			)
-		);
-	}
-
-	private function get_demos_data() {
-		$base_img = get_template_directory_uri() . '/assets/images/demos/';
-
-		return array(
-			'sportswear' => array(
-				'title'   => 'Sklep Sportowy (Fashion)',
-				'desc'    => 'Idealny dla e-commerce. Nowoczesny design, duży nacisk na zdjęcia produktów.',
-				'preview' => $base_img . 'sportswear.jpg',
-				'xml'     => 'demo-sportswear-shop.xml',
-				'plugins' => array( 'woocommerce' ),
-			),
-			'beauty'     => array(
-				'title'   => 'Salon Beauty',
-				'desc'    => 'Elegancki, delikatny styl dla salonów kosmetycznych i SPA.',
-				'preview' => $base_img . 'beauty.jpg',
-				'xml'     => 'demo-beauty-salon.xml',
-				'plugins' => array(),
-			),
-			'construction' => array(
-				'title'   => 'Firma Budowlana',
-				'desc'    => 'Solidny i konkretny layout dla branży budowlanej i remontowej.',
-				'preview' => $base_img . 'construction.jpg',
-				'xml'     => 'demo-construction.xml',
-				'plugins' => array(),
-			),
-			'restaurant' => array(
-				'title'   => 'Restauracja',
-				'desc'    => 'Apetyczny design z menu i galerią potraw.',
-				'preview' => $base_img . 'restaurant.jpg',
-				'xml'     => 'demo-restaurant.xml',
-				'plugins' => array(),
-			),
-			'saas'       => array(
-				'title'   => 'SaaS / Startup',
-				'desc'    => 'Czysty, technologiczny styl dla aplikacji i usług online.',
-				'preview' => $base_img . 'saas.jpg',
-				'xml'     => 'demo-saas.xml',
-				'plugins' => array(),
-			),
-			'blog'       => array(
-				'title'   => 'Blog Osobisty',
-				'desc'    => 'Minimalistyczny szablon skupiony na treści.',
-				'preview' => $base_img . 'blog.jpg',
-				'xml'     => 'demo-blog.xml',
-				'plugins' => array(),
-			),
-		);
-	}
-
-	public function render_page() {
-		?>
-		<div class="neve-onboarding-wrap">
-			<div class="neve-onboarding-container">
-				<header class="neve-header">
-					<div class="header-content">
-						<h1><?php esc_html_e( 'Konfigurator Motywu', 'neve-lite' ); ?></h1>
-						<p><?php esc_html_e( 'Wybierz gotowy projekt i uruchom swoją stronę w kilka minut.', 'neve-lite' ); ?></p>
-					</div>
-					<div class="steps-indicator">
-						<span class="step-dot active" data-step="1">1. Wybierz Demo</span>
-						<span class="step-dot" data-step="2">2. Narzędzia</span>
-						<span class="step-dot" data-step="3">3. Instalacja</span>
-					</div>
-				</header>
-
-				<div id="neve-onboarding-app">
-					<div class="step-content step-select-demo active" data-step="1">
-						<h2><?php esc_html_e( 'Wybierz szablon startowy', 'neve-lite' ); ?></h2>
-						<div class="demos-grid">
-							</div>
-					</div>
-
-					<div class="step-content step-select-builder" data-step="2">
-						<h2><?php esc_html_e( 'Preferowany edytor treści', 'neve-lite' ); ?></h2>
-						<p class="step-desc"><?php esc_html_e( 'Wybierz narzędzie, którym będziesz edytować swoją stronę.', 'neve-lite' ); ?></p>
-
-						<div class="builders-grid">
-							<div class="builder-card selected" data-builder="gutenberg">
-								<div class="builder-icon"><span class="dashicons dashicons-editor-table"></span></div>
-								<h3>Gutenberg</h3>
-								<p>Szybki, natywny edytor WordPress. Najlepszy dla wydajności.</p>
-							</div>
-							<div class="builder-card" data-builder="elementor">
-								<div class="builder-icon"><span class="dashicons dashicons-art"></span></div>
-								<h3>Elementor</h3>
-								<p>Zaawansowany edytor wizualny metodą przeciągnij i upuść.</p>
-							</div>
-						</div>
-
-						<div class="step-actions">
-							<button class="button button-secondary prev-step" data-goto="1">Wróć</button>
-							<button class="button button-primary next-step">Dalej <span class="dashicons dashicons-arrow-right-alt2"></span></button>
-						</div>
-					</div>
-
-					<div class="step-content step-import" data-step="3">
-						<h2><?php esc_html_e( 'Trwa instalacja...', 'neve-lite' ); ?></h2>
-						<p class="step-desc"><?php esc_html_e( 'Prosimy o cierpliwość. Pobieramy wtyczki i importujemy treści.', 'neve-lite' ); ?></p>
-
-						<div class="import-progress-box">
-							<ul class="import-progress-list">
-								</ul>
-						</div>
-
-						<div class="step-actions center">
-							<button class="button button-primary button-hero start-import"><?php esc_html_e( 'Rozpocznij Import', 'neve-lite' ); ?></button>
-						</div>
-					</div>
-
-					<div class="step-content step-success" data-step="4">
-						<div class="success-message">
-							<div class="success-icon"><span class="dashicons dashicons-yes-alt"></span></div>
-							<h2><?php esc_html_e( 'Wszystko gotowe!', 'neve-lite' ); ?></h2>
-							<p><?php esc_html_e( 'Twój serwis został pomyślnie zainstalowany.', 'neve-lite' ); ?></p>
-							<a href="<?php echo esc_url( home_url() ); ?>" class="button button-primary button-hero" target="_blank"><?php esc_html_e( 'Zobacz stronę', 'neve-lite' ); ?></a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="neve-modal-overlay">
-				<div class="neve-modal">
-					<button class="close-modal"><span class="dashicons dashicons-no-alt"></span></button>
-					<div class="neve-modal-content">
-						<img src="" alt="Demo Preview" id="modal-preview-image">
-					</div>
-					<div class="neve-modal-footer">
-						<button class="button button-primary select-demo-from-modal">Wybierz ten szablon</button>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<?php
-	}
-
-	// --- AJAX Handlers ---
-
-	public function ajax_get_plugins() {
-		check_ajax_referer( 'neve_onboarding_nonce', 'nonce' );
-		$builder = isset( $_POST['builder'] ) ? sanitize_text_field( $_POST['builder'] ) : 'gutenberg';
-		$demo    = isset( $_POST['demo'] ) ? sanitize_text_field( $_POST['demo'] ) : '';
-
-		$plugins_to_install = array();
-
-		// 1. Importer - absolutna podstawa
-		$plugins_to_install[] = array('slug' => 'wordpress-importer', 'name' => 'WordPress Importer');
-
-		// 2. Elementor
-		if ( 'elementor' === $builder ) {
-			$plugins_to_install[] = array('slug' => 'elementor', 'name' => 'Elementor');
-		}
-
-		// 3. WooCommerce
-		$demos_data = $this->get_demos_data();
-		if ( isset( $demos_data[ $demo ] ) && in_array( 'woocommerce', $demos_data[ $demo ]['plugins'] ) ) {
-			$plugins_to_install[] = array('slug' => 'woocommerce', 'name' => 'WooCommerce');
-		}
-
-		$final_list = array();
-		foreach ( $plugins_to_install as $plugin ) {
-			if ( ! is_plugin_active( $plugin['slug'] . '/' . $plugin['slug'] . '.php' ) ) {
-				$final_list[] = $plugin;
-			}
-		}
-
-		wp_send_json_success( $final_list );
-	}
-
-	/**
-	 * INSTALACJA Z POPRAWNYM SYSTEMEM PLIKÓW (Fix dla błędów uprawnień)
-	 */
-	public function ajax_install_plugin() {
-		check_ajax_referer( 'neve_onboarding_nonce', 'nonce' );
-		if ( ! current_user_can( 'install_plugins' ) ) wp_send_json_error( array( 'message' => 'Brak uprawnień.' ) );
-
-		$slug = sanitize_text_field( $_POST['slug'] );
-
-		include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-		include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-		include_once ABSPATH . 'wp-admin/includes/file.php';
-
-		// INICJALIZACJA SYSTEMU PLIKÓW - Kluczowa zmiana
-		$url = wp_nonce_url( 'themes.php?page=neve-onboarding', 'neve-onboarding-nonce' );
-		if ( false === ( $creds = request_filesystem_credentials( $url, '', false, false, null ) ) ) {
-			wp_send_json_error( array( 'message' => 'Błąd systemu plików. Wymagane dane FTP/uprawnienia.' ) );
-			return;
-		}
-
-		if ( ! WP_Filesystem( $creds ) ) {
-			wp_send_json_error( array( 'message' => 'Nie udało się zainicjować systemu plików.' ) );
-			return;
-		}
-
-		$plugin_main_file = $this->get_plugin_main_file( $slug );
-
-		if ( ! $plugin_main_file ) {
-			$api = plugins_api( 'plugin_information', array( 'slug' => $slug, 'fields' => array( 'sections' => false ) ) );
-
-			if ( is_wp_error( $api ) ) {
-				wp_send_json_error( array( 'message' => 'Błąd API WP: ' . $api->get_error_message() ) );
-			}
-
-			$skin = new WP_Ajax_Upgrader_Skin();
-			$upgrader = new Plugin_Upgrader( $skin );
-
-			// Instalacja
-			$result = $upgrader->install( $api->download_link );
-
-			if ( is_wp_error( $result ) ) {
-				wp_send_json_error( array( 'message' => 'Błąd instalacji: ' . $result->get_error_message() ) );
-			}
-
-			// Odśwież listę wtyczek po instalacji
-			wp_cache_flush();
-			$plugin_main_file = $this->get_plugin_main_file( $slug );
-		}
-
-		if ( $plugin_main_file ) {
-			$activated = activate_plugin( $plugin_main_file );
-			if ( is_wp_error( $activated ) ) {
-				wp_send_json_error( array( 'message' => 'Zainstalowano, ale nie udało się aktywować: ' . $activated->get_error_message() ) );
-			}
-			wp_send_json_success( array( 'message' => "Zainstalowano $slug" ) );
-		} else {
-			wp_send_json_error( array( 'message' => "Błąd: nie znaleziono pliku wtyczki $slug po instalacji." ) );
-		}
-	}
-
-	private function get_plugin_main_file( $slug ) {
-		if ( ! function_exists( 'get_plugins' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		// Wymuś odświeżenie cache wtyczek
-		wp_clean_plugins_cache();
-
-		$plugins = get_plugins();
-		foreach ( $plugins as $file => $data ) {
-			if ( strpos( $file, $slug . '/' ) === 0 ) return $file;
-		}
-		return false;
-	}
-
-	/**
-	 * IMPORT Z BEZPIECZNYM ŁADOWANIEM KLASY
-	 */
-	public function ajax_import_content() {
-		// Konfiguracja PHP
-		@ini_set( 'memory_limit', '1024M' );
-		@set_time_limit( 0 );
-		ignore_user_abort( true );
-		@ini_set( 'display_errors', 0 ); // Ukryj warningi PHP w response JSON
-
-		check_ajax_referer( 'neve_onboarding_nonce', 'nonce' );
-
-		// Wyłącz generowanie miniatur (Wydajność + unikanie błędów 500)
-		add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array' );
-
-		// Definiowanie stałych dla Importera
-		if ( ! defined( 'WP_LOAD_IMPORTERS' ) ) define( 'WP_LOAD_IMPORTERS', true );
-		if ( ! defined( 'WP_IMPORTING' ) ) define( 'WP_IMPORTING', true );
-
-		// Biblioteki WordPress
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		require_once ABSPATH . 'wp-admin/includes/media.php';
-		require_once ABSPATH . 'wp-admin/includes/image.php';
-		require_once ABSPATH . 'wp-admin/includes/post.php';
-		require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
-
-		// 1. Ładujemy WP_Importer (Klasa bazowa WordPressa)
-		if ( ! class_exists( 'WP_Importer' ) ) {
-			$wp_importer_path = ABSPATH . 'wp-admin/includes/class-wp-importer.php';
-			if ( file_exists( $wp_importer_path ) ) {
-				require_once $wp_importer_path;
-			}
-		}
-
-		// 2. Ładujemy Wtyczkę Importera
-		if ( ! class_exists( 'WP_Import' ) ) {
-
-			// Sprawdzamy standardową ścieżkę
-			$importer_plugin_path = WP_PLUGIN_DIR . '/wordpress-importer/wordpress-importer.php';
-			$importer_parser_path = WP_PLUGIN_DIR . '/wordpress-importer/parsers.php';
-
-			// Jeśli plików nie ma, szukamy alternatywnych (może folder z wersją?)
-			if ( ! file_exists( $importer_plugin_path ) ) {
-				$found = glob( WP_PLUGIN_DIR . '/wordpress-importer*/wordpress-importer.php' );
-				if ( ! empty( $found ) ) {
-					$importer_plugin_path = $found[0];
-					$importer_parser_path = dirname( $found[0] ) . '/parsers.php';
-				}
-			}
-
-			// Ładujemy pliki
-			if ( file_exists( $importer_parser_path ) ) require_once $importer_parser_path;
-			if ( file_exists( $importer_plugin_path ) ) require_once $importer_plugin_path;
-		}
-
-		// 3. OSTATECZNE SPRAWDZENIE - Jeśli nadal nie ma klasy, przerywamy elegancko
-		if ( ! class_exists( 'WP_Import' ) ) {
-			wp_send_json_error( array(
-				'message' => 'Błąd konfiguracji: Nie można załadować klasy WP_Import. Prawdopodobnie wtyczka "WordPress Importer" nie zainstalowała się poprawnie z powodu braku uprawnień zapisu. Proszę zainstalować ją ręcznie w sekcji Wtyczki i spróbować ponownie.'
-			) );
-		}
-
-		// Dane demo
-		$demo = sanitize_text_field( $_POST['demo'] );
-		$demos_data = $this->get_demos_data();
-
-		if ( ! isset( $demos_data[ $demo ] ) ) wp_send_json_error( array( 'message' => 'Nieprawidłowe demo.' ) );
-		$xml_file = get_template_directory() . '/demo-content/' . $demos_data[ $demo ]['xml'];
-		if ( ! file_exists( $xml_file ) ) wp_send_json_error( array( 'message' => 'Brak pliku XML: ' . basename($xml_file) ) );
-
-		try {
-			ob_start();
-
-			$importer = new WP_Import();
-			$importer->fetch_attachments = true;
-			$importer->import( $xml_file );
-
-			$log = ob_get_clean();
-
-			// Sprzątanie
-			remove_filter( 'intermediate_image_sizes_advanced', '__return_empty_array' );
-
-			// Ustawienia po imporcie
-			$homepage = get_page_by_title( 'Home' );
-			$blogpage = get_page_by_title( 'Blog' );
-			if ( $homepage ) {
-				update_option( 'show_on_front', 'page' );
-				update_option( 'page_on_front', $homepage->ID );
-			}
-			if ( $blogpage ) update_option( 'page_for_posts', $blogpage->ID );
-
-			if( 'elementor' === $_POST['builder'] ) {
-				update_option( 'elementor_cpt_support', array( 'page', 'post', 'product' ) );
-				update_option( 'elementor_disable_color_schemes', 'yes' );
-				update_option( 'elementor_disable_typography_schemes', 'yes' );
-				update_option( 'elementor_default_page_template', 'elementor_header_footer' );
-			}
-
-			wp_send_json_success( array( 'message' => 'Import zakończony sukcesem!' ) );
-
-		} catch ( Exception $e ) {
-			ob_end_clean();
-			wp_send_json_error( array( 'message' => 'Wyjątek: ' . $e->getMessage() ) );
-		}
-	}
+if ( file_exists( get_template_directory() . '/inc/class-tgm-plugin-activation.php' ) ) {
+	require_once get_template_directory() . '/inc/class-tgm-plugin-activation.php';
 }
 
-Neve_Lite_Onboarding::get_instance();
+/**
+ * 2. KONFIGURACJA WYMAGANYCH WTYCZEK
+ */
+function neve_lite_register_required_plugins() {
+	/*
+	 * Tablica wtyczek do zainstalowania.
+	 * Jeśli source jest pusty, pobiera z oficjalnego repozytorium WP (Zalecane).
+	 * Jeśli chcesz robić "Bundled", musisz wgrać zipy do folderu motywu i podać ścieżkę w 'source'.
+	 */
+	$plugins = array(
+		// One Click Demo Import - KLUCZOWE
+		array(
+			'name'      => 'One Click Demo Import',
+			'slug'      => 'one-click-demo-import',
+			'required'  => true,
+		),
+
+		// Elementor
+		array(
+			'name'      => 'Elementor Website Builder',
+			'slug'      => 'elementor',
+			'required'  => true,
+		),
+
+		// WooCommerce
+		array(
+			'name'      => 'WooCommerce',
+			'slug'      => 'woocommerce',
+			'required'  => false, // Opcjonalne (zależy od demo)
+		),
+
+		// Contact Form 7
+		array(
+			'name'      => 'Contact Form 7',
+			'slug'      => 'contact-form-7',
+			'required'  => false,
+		),
+	);
+
+	/*
+	 * Konfiguracja biblioteki TGMPA
+	 */
+	$config = array(
+		'id'           => 'neve-lite',             // Unikalne ID
+		'default_path' => '',                      // Domyślna ścieżka dla bundled plugins (puste = repo)
+		'menu'         => 'neve-install-plugins',  // Slug menu
+		'parent_slug'  => 'themes.php',            // Gdzie ma się pojawić menu
+		'capability'   => 'edit_theme_options',
+		'has_notices'  => true,                    // Pokaż komunikaty admina
+		'dismissable'  => true,                    // Czy user może zamknąć komunikat
+		'dismiss_msg'  => '',
+		'is_automatic' => true,                    // Automatycznie aktywuj po instalacji
+	);
+
+	if ( function_exists( 'tgmpa' ) ) {
+		tgmpa( $plugins, $config );
+	}
+}
+add_action( 'tgmpa_register', 'neve_lite_register_required_plugins' );
+
+
+/**
+ * 3. KONFIGURACJA ONE CLICK DEMO IMPORT (OCDI)
+ * Ta sekcja uruchamia się tylko, gdy wtyczka OCDI jest już zainstalowana przez TGM.
+ */
+if ( class_exists( 'OCDI_Plugin' ) ) {
+
+	// A. Definicja plików demo
+	function neve_lite_ocdi_import_files() {
+		return array(
+			array(
+				'import_file_name'           => 'Sklep Sportowy (WooCommerce)',
+				'categories'                 => array( 'Sklep', 'Elementor' ),
+				'import_file_url'            => get_template_directory_uri() . '/demo-content/demo-sportswear-shop.xml',
+				'import_preview_image_url'   => get_template_directory_uri() . '/assets/images/demos/sportswear.jpg',
+				'import_notice'              => __( 'Wymaga wtyczek: WooCommerce, Elementor.', 'neve-lite' ),
+			),
+			array(
+				'import_file_name'           => 'Salon Beauty',
+				'categories'                 => array( 'Usługi', 'Elementor' ),
+				'import_file_url'            => get_template_directory_uri() . '/demo-content/demo-beauty-salon.xml',
+				'import_preview_image_url'   => get_template_directory_uri() . '/assets/images/demos/beauty.jpg',
+				'import_notice'              => __( 'Wymaga wtyczek: Contact Form 7, Elementor.', 'neve-lite' ),
+			),
+			array(
+				'import_file_name'           => 'Firma Budowlana',
+				'categories'                 => array( 'Biznes', 'Elementor' ),
+				'import_file_url'            => get_template_directory_uri() . '/demo-content/demo-construction.xml',
+				'import_preview_image_url'   => get_template_directory_uri() . '/assets/images/demos/construction.jpg',
+				'import_notice'              => __( 'Wymaga wtyczek: Contact Form 7, Elementor.', 'neve-lite' ),
+			),
+			array(
+				'import_file_name'           => 'Restauracja',
+				'categories'                 => array( 'Gastro', 'Elementor' ),
+				'import_file_url'            => get_template_directory_uri() . '/demo-content/demo-restaurant.xml',
+				'import_preview_image_url'   => get_template_directory_uri() . '/assets/images/demos/restaurant.jpg',
+				'import_notice'              => __( 'Wymaga wtyczek: Contact Form 7, Elementor.', 'neve-lite' ),
+			),
+			array(
+				'import_file_name'           => 'SaaS / Tech',
+				'categories'                 => array( 'Startup', 'Elementor' ),
+				'import_file_url'            => get_template_directory_uri() . '/demo-content/demo-saas.xml',
+				'import_preview_image_url'   => get_template_directory_uri() . '/assets/images/demos/saas.jpg',
+			),
+			array(
+				'import_file_name'           => 'Blog Osobisty',
+				'categories'                 => array( 'Blog' ),
+				'import_file_url'            => get_template_directory_uri() . '/demo-content/demo-blog.xml',
+				'import_preview_image_url'   => get_template_directory_uri() . '/assets/images/demos/blog.jpg',
+			),
+		);
+	}
+	add_filter( 'pt-ocdi/import_files', 'neve_lite_ocdi_import_files' );
+
+	// B. Ustawienia po imporcie (Menu, Home Page)
+	function neve_lite_ocdi_after_import() {
+		// Menu
+		$main_menu = get_term_by( 'name', 'Primary Menu', 'nav_menu' );
+		if ( ! $main_menu ) {
+			$menus = get_terms( 'nav_menu' );
+			if ( ! empty( $menus ) ) $main_menu = $menus[0];
+		}
+		if ( $main_menu ) {
+			set_theme_mod( 'nav_menu_locations', array( 'menu-1' => $main_menu->term_id ) );
+		}
+
+		// Home & Blog Page
+		$front_page = get_page_by_title( 'Home' );
+		$blog_page  = get_page_by_title( 'Blog' );
+
+		if ( $front_page ) {
+			update_option( 'show_on_front', 'page' );
+			update_option( 'page_on_front', $front_page->ID );
+		}
+		if ( $blog_page ) {
+			update_option( 'page_for_posts', $blog_page->ID );
+		}
+
+		// Elementor Setup
+		if ( class_exists( '\Elementor\Plugin' ) ) {
+			update_option( 'elementor_cpt_support', array( 'page', 'post', 'product' ) );
+			update_option( 'elementor_disable_color_schemes', 'yes' );
+			update_option( 'elementor_disable_typography_schemes', 'yes' );
+			\Elementor\Plugin::$instance->files_manager->clear_cache();
+		}
+
+		// Woo Setup
+		if ( class_exists( 'WooCommerce' ) ) {
+			$shop_page = get_page_by_title( 'Shop' );
+			if ( $shop_page ) update_option( 'woocommerce_shop_page_id', $shop_page->ID );
+		}
+	}
+	add_action( 'pt-ocdi/after_import', 'neve_lite_ocdi_after_import' );
+
+	// C. Optymalizacja
+	add_filter( 'pt-ocdi/regenerate_thumbnails_in_content_import', '__return_false' );
+}
