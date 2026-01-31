@@ -58,8 +58,8 @@ class Neve_Lite_Onboarding {
 			return;
 		}
 
-		wp_enqueue_style( 'neve-onboarding-css', get_template_directory_uri() . '/assets/css/onboarding.css', array(), '1.4.0' );
-		wp_enqueue_script( 'neve-onboarding-js', get_template_directory_uri() . '/assets/js/onboarding.js', array( 'jquery', 'wp-util', 'updates' ), '1.4.0', true );
+		wp_enqueue_style( 'neve-onboarding-css', get_template_directory_uri() . '/assets/css/onboarding.css', array(), '1.8.0' );
+		wp_enqueue_script( 'neve-onboarding-js', get_template_directory_uri() . '/assets/js/onboarding.js', array( 'jquery', 'wp-util', 'updates' ), '1.8.0', true );
 
 		wp_localize_script(
 			'neve-onboarding-js',
@@ -217,15 +217,12 @@ class Neve_Lite_Onboarding {
 
 		$plugins_to_install = array();
 
-		// 1. ZAWSZE WordPress Importer
 		$plugins_to_install[] = array('slug' => 'wordpress-importer', 'name' => 'WordPress Importer');
 
-		// 2. Elementor
 		if ( 'elementor' === $builder ) {
 			$plugins_to_install[] = array('slug' => 'elementor', 'name' => 'Elementor');
 		}
 
-		// 3. WooCommerce
 		$demos_data = $this->get_demos_data();
 		if ( isset( $demos_data[ $demo ] ) && in_array( 'woocommerce', $demos_data[ $demo ]['plugins'] ) ) {
 			$plugins_to_install[] = array('slug' => 'woocommerce', 'name' => 'WooCommerce');
@@ -280,93 +277,86 @@ class Neve_Lite_Onboarding {
 	}
 
 	/**
-	 * PANCERNY IMPORT CONTENTU
+	 * OPTIMIZED IMPORT
 	 */
 	public function ajax_import_content() {
-		// Wyłącz wyświetlanie błędów, aby nie zepsuć JSON-a
-		ini_set( 'display_errors', 0 );
-		error_reporting( 0 );
+		// 1. Zwiększ zasoby (Najważniejsze!)
+		@ini_set( 'memory_limit', '1024M' );
+		@set_time_limit( 0 );
+		ignore_user_abort( true );
+
+		// Wyłącz wyświetlanie błędów, aby nie zepsuć JSON-a (Notice, Deprecated etc.)
+		@ini_set( 'display_errors', 0 );
 
 		check_ajax_referer( 'neve_onboarding_nonce', 'nonce' );
 
-		// 1. Konfiguracja środowiska
-		ini_set( 'memory_limit', '512M' );
-		set_time_limit( 300 );
+		// 2. GAME CHANGER: Wyłącz generowanie miniatur podczas importu
+		add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array' );
 
+		// Definicje wymagane przez importer
 		if ( ! defined( 'WP_LOAD_IMPORTERS' ) ) define( 'WP_LOAD_IMPORTERS', true );
 		if ( ! defined( 'WP_IMPORTING' ) ) define( 'WP_IMPORTING', true );
 
-		// 2. Ładowanie niezbędnych bibliotek WP Admin
+		// Załaduj biblioteki WP
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/media.php';
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 		require_once ABSPATH . 'wp-admin/includes/post.php';
 		require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
 
-		// 3. Ładowanie klasy RODZICA (WP_Importer)
+		// Załaduj klasę bazową
 		if ( ! class_exists( 'WP_Importer' ) ) {
 			$wp_importer_path = ABSPATH . 'wp-admin/includes/class-wp-importer.php';
-			if ( file_exists( $wp_importer_path ) ) {
-				require_once $wp_importer_path;
-			}
+			if ( file_exists( $wp_importer_path ) ) require_once $wp_importer_path;
 		}
 
-		// 4. Ładowanie Importera z wtyczki
+		// Załaduj wtyczkę importera (Bezpiecznie!)
 		if ( ! class_exists( 'WP_Import' ) ) {
+			$plugin_dir = WP_PLUGIN_DIR . '/wordpress-importer';
 
-			// Szukamy wtyczki "wordpress-importer"
-			// Najpierw sprawdzamy parsery, bo wtyczka bez nich nie wstanie w wersji v2
-			$parser_path = WP_PLUGIN_DIR . '/wordpress-importer/parsers.php';
-			if ( file_exists( $parser_path ) ) {
-				require_once $parser_path;
+			// Jeśli folder ma inną nazwę (np. wersję), znajdź go
+			if ( ! is_dir( $plugin_dir ) ) {
+				$found = glob( WP_PLUGIN_DIR . '/wordpress-importer*' );
+				if ( ! empty( $found ) ) $plugin_dir = $found[0];
 			}
 
-			// Główny plik wtyczki
-			$plugin_path = WP_PLUGIN_DIR . '/wordpress-importer/wordpress-importer.php';
+			$main_file   = $plugin_dir . '/wordpress-importer.php';
+			$parser_file = $plugin_dir . '/parsers.php';
 
-			if ( file_exists( $plugin_path ) ) {
-				require_once $plugin_path;
-			} else {
-				// Fallback: szukanie po wildcardzie (gdyby folder miał wersję w nazwie)
-				$found = glob( WP_PLUGIN_DIR . '/wordpress-importer*/wordpress-importer.php' );
-				if ( ! empty( $found ) ) {
-					// Spróbuj załadować parser też tutaj
-					$dir = dirname( $found[0] );
-					if ( file_exists( $dir . '/parsers.php' ) ) {
-						require_once $dir . '/parsers.php';
-					}
-					require_once $found[0];
-				}
-			}
+			// Używamy require_once, aby uniknąć "Cannot redeclare function"
+			if ( file_exists( $parser_file ) ) require_once $parser_file;
+			if ( file_exists( $main_file ) ) require_once $main_file;
 		}
 
-		// 5. Ostateczna weryfikacja
 		if ( ! class_exists( 'WP_Import' ) ) {
-			wp_send_json_error( array(
-				'message' => 'Krytyczny błąd: Plik wtyczki załadowany, ale klasa WP_Import nie istnieje. Prawdopodobnie uszkodzona wtyczka.'
-			) );
+			wp_send_json_error( array( 'message' => 'Błąd krytyczny: Klasa WP_Import niedostępna. Upewnij się, że wtyczka jest zainstalowana.' ) );
 		}
 
-		// 6. Wykonanie importu
 		$demo = sanitize_text_field( $_POST['demo'] );
 		$demos_data = $this->get_demos_data();
 
 		if ( ! isset( $demos_data[ $demo ] ) ) wp_send_json_error( array( 'message' => 'Nieprawidłowe demo.' ) );
-
 		$xml_file = get_template_directory() . '/demo-content/' . $demos_data[ $demo ]['xml'];
-		if ( ! file_exists( $xml_file ) ) wp_send_json_error( array( 'message' => 'Brak pliku XML: ' . $xml_file ) );
+		if ( ! file_exists( $xml_file ) ) wp_send_json_error( array( 'message' => 'Brak pliku XML.' ) );
 
 		try {
 			ob_start();
 
-			// Fix dla importera, który czasem rzuca warningami
 			$importer = new WP_Import();
+
+			// WAŻNE: Włączamy pobieranie załączników.
+			// Jeśli nadal będziesz miał błąd 500, zmień tę wartość na false.
+			// To pozwoli zaimportować strukturę bez zdjęć.
 			$importer->fetch_attachments = true;
+
 			$importer->import( $xml_file );
 
 			$log = ob_get_clean();
 
-			// Konfiguracja po imporcie
+			// Sprzątanie po filtrach
+			remove_filter( 'intermediate_image_sizes_advanced', '__return_empty_array' );
+
+			// Konfiguracja strony głównej
 			$homepage = get_page_by_title( 'Home' );
 			$blogpage = get_page_by_title( 'Blog' );
 			if ( $homepage ) {
@@ -375,6 +365,7 @@ class Neve_Lite_Onboarding {
 			}
 			if ( $blogpage ) update_option( 'page_for_posts', $blogpage->ID );
 
+			// Konfiguracja Elementor
 			if( 'elementor' === $_POST['builder'] ) {
 				update_option( 'elementor_cpt_support', array( 'page', 'post', 'product' ) );
 				update_option( 'elementor_disable_color_schemes', 'yes' );
